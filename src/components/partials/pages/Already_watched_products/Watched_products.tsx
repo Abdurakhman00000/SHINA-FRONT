@@ -1,5 +1,5 @@
 import React from "react";
-import scss from "./Watched.module.scss";
+import scss from "./Watched_products.module.scss";
 
 const Watched_products = () => {
   return (
