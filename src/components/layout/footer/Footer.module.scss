@@ -1,1 +1,139 @@
-.Footer {}
+.Footer {
+    margin-top: 130px !important;
+    padding: 70px 0;
+    background: rgba(0, 0, 0, 0.962);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    width: 100%;
+
+    .content {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+
+        .form {
+            h2 {
+                color: white;
+                margin-bottom: 20px;
+            }
+            .feedback {
+                p {
+                    color: rgba(255, 255, 255, 0.708);
+                    margin-bottom: 14px;
+                }
+                .input {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    width: 260px;
+                    height: 45px;
+                    border: 1px solid gray;
+                    border-radius: 5px;
+                    padding: 0 8px;
+
+                    input {
+                        height: 90%;
+                        background: transparent;
+                        width: 85%;
+                        border: none;
+                        padding-left: 10px;
+                        font-size: 13px;
+                        outline: none;
+                        color: white;
+                    }
+
+                    button {
+                        background: transparent;
+                        font-size: 15px;
+                        border: none;
+
+                        svg {
+                            color: white;
+                            width: 20px;
+                            height: 20px;
+                            margin-top: 3px;
+                        }
+
+                        &:hover {
+                            color: darkorchid;
+                            transform: scale(1.1);
+                            transition: 0.8s;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .block1 {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        h4 {
+            color: white;
+            margin-bottom: 21px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        p {
+            color: rgba(255, 255, 255, 0.403);
+            cursor: pointer;
+
+            &:hover {
+                color: white;
+                transform: scale(1.05);
+                transition: 0.5s;
+            }
+        }
+    }
+
+    .block2 {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        h4 {
+            color: white;
+            margin-bottom: 21px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        p {
+            color: rgba(255, 255, 255, 0.403);
+            cursor: pointer;
+
+            &:hover {
+                color: white;
+                transform: scale(1.05);
+                transition: 0.5s;
+            }
+        }
+    }
+
+    .block3 {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        h4 {
+            color: white;
+            margin-bottom: 21px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        p {
+            color: rgba(255, 255, 255, 0.403);
+            cursor: pointer;
+
+            &:hover {
+                color: white;
+                transform: scale(1.05);
+                transition: 0.5s;
+            }
+        }
+    }
+}
