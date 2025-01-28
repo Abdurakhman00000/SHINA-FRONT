@@ -55,7 +55,7 @@ const Header = () => {
 
           <div className={scss.nav_links}>
             <ul>
-              <li> <FaFire/> Промокоды</li>
+              <li> <FaFire/> Подбор по авто</li>
               <li> <MdOutlineDiscount/> Скидки дня</li>
               <li>Блог</li>
               <li>Бренды</li>
