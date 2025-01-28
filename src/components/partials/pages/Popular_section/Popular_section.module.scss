@@ -1,7 +1,15 @@
 .Main {
     .content {
+        margin-top: 70px;
         h1 {
-            font-size: 16px;
+            font-size: 27px;
+            margin-bottom: 30px;
+        }
+
+        .main_card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
     }
 }

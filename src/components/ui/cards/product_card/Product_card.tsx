@@ -26,7 +26,7 @@ const Product_card = () => {
             <span>Зимние</span>
           </div>
           <div className={scss.action}>
-            <button className={scss.more}>Узнать больше</button>
+            <button className={scss.more}>Подробнее</button>
             <button className={scss.icon}>
               <RiScales3Line />
             </button>
