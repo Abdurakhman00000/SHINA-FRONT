@@ -1,9 +1,8 @@
-
 :root {
   /* Цветовая палитра */
   --color-primary: #007acc; /* Основной цвет */
   --color-text: #333; /* Цвет текста */
-  --color-background: #f9f9f9; /* Цвет фона */
+  --color-background: #ffffff; /* Цвет фона */
   --color-border: #ccc; /* Цвет границ */
 
   /* Шрифты */
@@ -28,6 +27,7 @@
 html {
   scroll-behavior: smooth;
   font-size: var(--font-size-base);
+  scrollbar-width: none;
 }
 
 body {
@@ -53,7 +53,6 @@ a {
   margin: 0 auto;
   padding: 0 var(--container-padding);
 }
-
 
 @media (max-width: 768px) {
   .container {

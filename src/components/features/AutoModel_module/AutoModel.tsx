@@ -4,7 +4,9 @@ import scss from "./AutoModel.module.scss"
 const AutoModel = () => {
   return (
     <section className={scss.Main}>
-        <div className={scss.content}></div>
+        <div className={scss.content}>
+          <p>Auto model results</p>
+        </div>
     </section>
   )
 }
