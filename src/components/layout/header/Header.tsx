@@ -1,4 +1,6 @@
-import React from 'react'
+"use client";
+
+import React, { useState } from 'react'
 import scss from "./Header.module.scss"
 import Image from "next/image";
 import shina_logo from "../../../../public/assets/logo/shina-logo-v2.avif"
@@ -9,13 +11,18 @@ import { GrFavorite } from "react-icons/gr";
 import { MdOutlinePlace } from "react-icons/md";
 import { MdOutlineDiscount } from "react-icons/md";
 import { FaFire } from "react-icons/fa6";
-
-
-
+import CatalogModal from '@/components/ui/modals/catalog_modal/Catalog_modal';
 
 
 
 const Header = () => {
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsOpen((prev) => !prev);
+  };
+
   return (
     <header className={scss.Header}>
       <div className="container">
@@ -30,7 +37,7 @@ const Header = () => {
           </div>
 
           <div className={scss.category_button}>
-            <Category_button/>
+          <Category_button isOpen={isOpen} onClick={toggleModal} />
           </div>
 
           <div className={scss.search}>
@@ -67,6 +74,8 @@ const Header = () => {
         </div>
 
       </div>
+
+      <CatalogModal isOpen={isOpen} />
     </header>
   );
 };
