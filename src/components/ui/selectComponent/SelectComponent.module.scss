@@ -1,0 +1,14 @@
+.selectWrapper {
+  width: auto;
+}
+
+.select {
+  & .custom__control {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+
+  & .custom__menu {
+    border-radius: 8px;
+  }
+}
