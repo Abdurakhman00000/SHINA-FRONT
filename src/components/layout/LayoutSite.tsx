@@ -12,7 +12,7 @@ const LayoutSite: FC<iLayoutSiteProps> = ({ children }) => {
     <div className={scss.LayoutSite}>
       <Header />
       <main>{children}</main>
-      <ScrollToTop/>
+      <ScrollToTop />
       <Footer />
     </div>
   );
