@@ -9,7 +9,6 @@ import { IoMdStar } from "react-icons/io";
 import { FaFire } from "react-icons/fa";
 import { GoLinkExternal } from "react-icons/go";
 import { FaStar, FaThumbsUp, FaThumbsDown } from "react-icons/fa";
-
 import SelectComponent from "@/components/ui/selectComponent/SelectComponent";
 import PriceHistory from "@/components/ui/PriceHistory/PriceHistory";
 
