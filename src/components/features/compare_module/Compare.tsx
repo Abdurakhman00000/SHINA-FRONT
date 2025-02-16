@@ -82,5 +82,5 @@ const Compare = () => {
     </section>
   );
 };
-
+// test
 export default Compare;
