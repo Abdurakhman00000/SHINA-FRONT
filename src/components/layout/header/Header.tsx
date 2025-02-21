@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import scss from "./Header.module.scss";
 import Image from "next/image";
 import shina_logo from "../../../../public/assets/logo/shina-logo-v2.avif";
@@ -12,17 +12,29 @@ import { MdOutlinePlace, MdOutlineDiscount } from "react-icons/md";
 import { FaFire } from "react-icons/fa6";
 import AutoPodbor_modal from "@/components/ui/modals/autobodbor_modal/AutoPodbor_modal";
 import CatalogModal from "@/components/ui/modals/catalog_modal/Catalog_modal";
+import BurgerMenu from "@/components/mobile/ui-elements/burgerMenu/BurgerMenu";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const toggleModal = () => {
-    setIsOpen((prev) => !prev);
+    setIsOpen((prev) => !prev); 
   };
 
   const handleModalOpen = () => setIsModalOpen(true);
   const handleModalClose = () => setIsModalOpen(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
 
   return (
     <header className={scss.Header}>
@@ -57,7 +69,13 @@ const Header = () => {
             </button>
           </div>
 
-          <div className={scss.nav_links}>
+          {
+            isMobile ? (
+              <div>
+                <BurgerMenu/>
+              </div>
+            ) : (
+              <div className={scss.nav_links}>
             <ul>
               <li onClick={handleModalOpen}>
                 <FaFire /> Подбор по авто
@@ -72,6 +90,9 @@ const Header = () => {
               <li>Диски</li>
             </ul>
           </div>
+            )
+          }
+
         </div>
       </div>
 
