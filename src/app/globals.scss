@@ -36,6 +36,10 @@ body {
   line-height: var(--line-height);
   color: var(--color-text);
   background-color: var(--color-background);
+  &.no-scroll {
+    overflow: hidden;
+  }
+
 }
 
 li {
@@ -52,6 +56,14 @@ a {
   width: 100%;
   margin: 0 auto;
   padding: 0 var(--container-padding);
+}
+
+.scroll-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.schroll::-webkit-scrollbar {
+  display: none;
 }
 
 @media (max-width: 768px) {

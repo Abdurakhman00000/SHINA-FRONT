@@ -1,9 +1,11 @@
-import { useState } from "react";
+
 import scss from "./Catalog_modal.module.scss";
 import winterTire from "../../../../../public/assets/catalog_images/wheels_img_shina.jpg";
 import rimsImg from "../../../../../public/assets/catalog_images/rims1_shina.jpg";
 import Image from "next/image";
 import { StaticImageData } from "next/image";
+import { useState } from "react";
+
 
 interface Product {
   id: number;
@@ -34,12 +36,15 @@ interface CatalogModalProps {
 }
 
 const CatalogModal: React.FC<CatalogModalProps> = ({ isOpen }) => {
+
   const [selectedCategory, setSelectedCategory] = useState<"tires" | "wheels">(
     "tires"
   );
 
+
   const products = selectedCategory === "tires" ? tires : wheels;
 
+ 
   return (
     <div className={`${scss.modal} ${isOpen ? scss.open : ""}`}>
       <div className="container">
@@ -62,7 +67,12 @@ const CatalogModal: React.FC<CatalogModalProps> = ({ isOpen }) => {
             {products.map((product) => (
               <div key={product.id} className={scss.product}>
                 <p>{product.type}</p>
-                <Image width={800} height={350} src={product.image} alt={product.type} />
+                <Image
+                  width={800}
+                  height={350}
+                  src={product.image}
+                  alt={product.type}
+                />
               </div>
             ))}
           </div>
