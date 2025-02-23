@@ -10,6 +10,8 @@
         display: flex;
         align-items: start;
         justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
 
         .form {
             h2 {
@@ -25,7 +27,8 @@
                     display: flex;
                     align-items: center;
                     gap: 12px;
-                    width: 260px;
+                    width: 100%;
+                    max-width: 260px;
                     height: 45px;
                     border: 1px solid gray;
                     border-radius: 5px;
@@ -46,7 +49,7 @@
                         background: transparent;
                         font-size: 15px;
                         border: none;
-
+                        
                         svg {
                             color: white;
                             width: 20px;
@@ -65,7 +68,7 @@
         }
     }
 
-    .block1 {
+    .block1, .block2, .block3 {
         display: flex;
         flex-direction: column;
         gap: 15px;
@@ -89,50 +92,88 @@
         }
     }
 
-    .block2 {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-
-        h4 {
-            color: white;
-            margin-bottom: 21px;
-            cursor: pointer;
-            font-size: 18px;
-        }
-
+    .under_footer {
+        margin-top: 55px;
+        margin-bottom: -39px;
+        width: 100%;
+        border-top: 1px solid rgba(255, 255, 255, 0.255);
+        
         p {
-            color: rgba(255, 255, 255, 0.403);
-            cursor: pointer;
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.389);
 
-            &:hover {
-                color: white;
-                transform: scale(1.05);
-                transition: 0.5s;
+            span {
+                color: blueviolet;
             }
         }
     }
 
-    .block3 {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
+    @media (max-width: 1024px) {
+        .content {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+    }
 
-        h4 {
-            color: white;
-            margin-bottom: 21px;
-            cursor: pointer;
-            font-size: 18px;
+    @media (max-width: 768px) {
+        padding: 70px 40px;
+
+        .content {
+            flex-direction: column;
+            align-items: start;
+            text-align: start;
+
+            .feedback {
+                .input {
+                    width: 100%;
+                    input {
+                        width: 100%;
+                    }
+                }
+            }
         }
 
-        p {
-            color: rgba(255, 255, 255, 0.403);
-            cursor: pointer;
+        .block1, .block2, .block3 {
+            align-items: start;
+        }
+    }
 
-            &:hover {
-                color: white;
-                transform: scale(1.05);
-                transition: 0.5s;
+    @media (max-width: 480px) {
+        padding: 70px 25px;
+
+        .content {
+            gap: 10px;
+        }
+
+        .block1, .block2, .block3 {
+            h4 {
+                font-size: 17px;
+            }
+            p {
+                font-size: 15px;
+            }
+        }
+    }
+
+    @media (max-width: 320px) {
+        padding: 70px 20px;
+
+        .content {
+            flex-direction: column;
+            align-items: start;
+            gap: 8px;
+        }
+
+        .block1, .block2, .block3 {
+            h4 {
+                font-size: 16px;
+            }
+            p {
+                font-size: 14px;
             }
         }
     }

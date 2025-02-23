@@ -17,7 +17,7 @@ const Footer = () => {
                 placeholder="E-mail почта, номер телефона..."
               />
               <button type="submit">
-                <GoPaperAirplane /> 
+                <GoPaperAirplane />  
               </button>
             </form>
             </div>
@@ -46,6 +46,10 @@ const Footer = () => {
             <p>Правила размещения</p>
           </div>
         </div>
+      </div>
+
+      <div className={scss.under_footer}>
+        <p>2025. Powered by <span>IANT</span> Studio</p>
       </div>
     </footer>
   )
