@@ -19,7 +19,13 @@ const CategoryCard = () => {
       {categoryData.map((category) => (
         <div key={category.id} className={scss.card}>
           <h4>{category.title}</h4>
-          <Image src={category.image} alt={category.title} height={350} width={850} />
+          <Image
+            src={category.image}
+            alt={category.title}
+            height={150} // Уменьшил для лучшей пропорции
+            width={250} // Установил ширину ближе к карточке
+            className={scss.cardImage}
+          />
         </div>
       ))}
     </div>
