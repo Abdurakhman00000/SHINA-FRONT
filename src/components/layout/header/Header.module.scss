@@ -1,128 +1,176 @@
 .Header {
-    .content {
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .logo {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        .logo {
-            img {
-                width: 92px;
-                height: 92px;
-                cursor: pointer;
-            }
-        }
-
-        .features {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-
-            .favorite_icon {
-                display: flex;
-                align-items: center;
-                flex-direction: column;
-                gap: 2px;
-
-                svg {
-                    width: 24px;
-                    height: 23px;
-                    color: #0800ff;
-                    cursor: pointer;
-                }
-
-                p {
-                    color: rgba(0, 0, 0, 0.597);
-                    font-weight: 500;
-                }
-            }
-
-            .compare_icon {
-                display: flex;
-                align-items: center;
-                flex-direction: column;
-
-                svg {
-                    width: 25px;
-                    height: 25px;
-                    color: #0800ff;
-                    cursor: pointer;
-                }
-
-                p {
-                    color: rgba(0, 0, 0, 0.597);
-                    font-weight: 500;
-                }
-            }
-        }
-
+        gap: 10px;
+      img {
+        width: 92px;
+        height: 92px;
+        cursor: pointer;
+      }
     }
-
-
-    .bottom_header {
+    .search {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      .find_place_moile {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        button {
+          display: flex;
+          align-items: center;
+          gap: 3px;
+          padding: 8px 10px;
+          font-size: 16px;
+          color: rgb(21, 21, 21);
+          font-weight: 400;
+          border: none;
+          border-radius: 10px;
+          background-color: transparent;
+          cursor: pointer;
+          svg {
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
+      .search_button_mobile {
+        background-color: #007bff;
+        border: none;
+        outline: none;
+        border-radius: 13px;
+        width: 39px;
+        height: 39px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background-color 0.3s;
 
-        .find_place {
-            button {
-                display: flex;
-                align-items: center;
-                gap: 3px;
-                padding: 8px 10px;
-                font-size: 17px;
-                border: none;
-                background: rgba(0, 0, 0, 0.104);
-                border-radius: 10px;
-                cursor: pointer;
-
-                svg {
-                    width: 23px;
-                    height: 23px;
-                }
-            }
+        &:hover {
+          background-color: #0056b3;
         }
 
-        .nav_links {
-            ul {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 50px;
-                li {
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                    cursor: pointer;
-                    position: relative;
-
-                    &::after {
-                        content: "";
-                        position: absolute;
-                        width: 100%;
-                        height: 2px;
-                        background-color: blue;
-                        bottom: -4px;
-                        left: 0;
-                        transform: scaleX(0);
-                        transition: transform 0.3s ease;
-                    }
-
-                    &:hover::after {
-                        transform: scaleX(1);
-                    }
-
-                    svg {
-                        color: blue;
-                    }
-                }
-
-                .line {
-                    width: 2px;
-                    height: 25px;
-                    background: rgba(0, 0, 0, 0.312);
-                }
-            }
+        svg {
+          color: white;
+          width: 24px;
+          height: 24px;
         }
+      }
     }
+    .features {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      .favorite_icon {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 2px;
+
+        svg {
+          width: 24px;
+          height: 23px;
+          color: #0800ff;
+          cursor: pointer;
+        }
+
+        p {
+          color: rgba(0, 0, 0, 0.597);
+          font-weight: 500;
+        }
+      }
+
+      .compare_icon {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        svg {
+          width: 25px;
+          height: 25px;
+          color: #0800ff;
+          cursor: pointer;
+        }
+
+        p {
+          color: rgba(0, 0, 0, 0.597);
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  .bottom_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .find_place {
+      button {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        padding: 8px 10px;
+        font-size: 17px;
+        border: none;
+        background: rgba(0, 0, 0, 0.104);
+        border-radius: 10px;
+        cursor: pointer;
+
+        svg {
+          width: 23px;
+          height: 23px;
+        }
+      }
+    }
+
+    
+  }
 }
+.nav_links {
+      ul {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 50px;
+        li {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          cursor: pointer;
+          position: relative;
 
+          &::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: blue;
+            bottom: -4px;
+            left: 0;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+          }
 
+          &:hover::after {
+            transform: scaleX(1);
+          }
+
+          svg {
+            color: blue;
+          }
+        }
+
+        .line {
+          width: 2px;
+          height: 25px;
+          background: rgba(0, 0, 0, 0.312);
+        }
+      }
+    }

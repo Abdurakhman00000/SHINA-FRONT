@@ -1,0 +1,45 @@
+.BurgerMenu {
+  .content {
+    .burger_button {
+      width: 30px;
+      height: 30px;
+      border: none;
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      cursor: pointer;
+      .burger_button_line {
+        height: 2px;
+        background: black;
+        border-radius: 5px;
+        width: 20px;
+        position: absolute;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        &:nth-child(1) {
+          transform: translateY(-7px);
+          transition: transform 0.3s ease;
+        }
+        &:nth-child(3) {
+          transform: translateY(7px);
+          transition: transform 0.3s ease;
+        }
+      }
+      &.active {
+        .burger_button_line:nth-child(1) {
+          transform: rotate(45deg);
+          position: absolute;
+        }
+        .burger_button_line:nth-child(2) {
+          opacity: 0;
+        }
+        .burger_button_line:nth-child(3) {
+          transform: rotate(-45deg);
+          position: absolute;
+        }
+      }
+    }
+  }
+}

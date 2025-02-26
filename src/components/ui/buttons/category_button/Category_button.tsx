@@ -6,6 +6,7 @@ import { IoClose } from "react-icons/io5";
 interface CategoryButtonProps {
   isOpen: boolean;
   onClick: () => void;
+  
 }
 
 const Category_Button: React.FC<CategoryButtonProps> = ({ isOpen, onClick }) => {

@@ -1,0 +1,34 @@
+.BottomTabs {
+  width: 100%;
+  height: 70px;
+  background-color: rgba(0, 0, 0, 0.123); 
+  backdrop-filter: blur(10px);
+  position: fixed;
+  bottom: 0;
+  z-index: 98;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  .content {
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 20px;
+
+    .tab_bar_buttom {
+      width: 50px;
+      height: 50px;
+      background-color: transparent;
+      border: none;
+      border-radius: 50%;
+      .tab_bar_icon {
+        color:#6c31eb;
+      }
+    }
+  }
+}

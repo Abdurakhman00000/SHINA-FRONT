@@ -73,7 +73,7 @@ const DISK_OPTIONS = [
 export const AutoPodborModal: React.FC<{
   isOpen: boolean;
   onClose: () => void;
-}> = ({ isOpen, onClose }) => {
+}> = ({ isOpen, onClose, }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleSelectChange = useCallback(
