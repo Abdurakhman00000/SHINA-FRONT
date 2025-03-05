@@ -1,46 +1,84 @@
 "use client";
-import React, { useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import scss from "./Header.module.scss";
 import Image from "next/image";
 import shina_logo from "../../../../public/assets/logo/shina-logo-v2.avif";
 import Category_button from "@/components/ui/buttons/category_button/Category_button";
 import Input from "@/components/ui/input/Input";
-import { LuGitCompare } from "react-icons/lu";
+import { LuGitCompare, LuSearch } from "react-icons/lu";
 import { GrFavorite } from "react-icons/gr";
-import { MdOutlinePlace } from "react-icons/md";
-import { MdOutlineDiscount } from "react-icons/md";
+import { MdOutlinePlace, MdOutlineDiscount } from "react-icons/md";
 import { FaFire } from "react-icons/fa6";
 import AutoPodbor_modal from "@/components/ui/modals/autobodbor_modal/AutoPodbor_modal";
+import CatalogModal from "@/components/ui/modals/catalog_modal/Catalog_modal";
+import BurgerMenu from "@/components/mobile/ui-elements/burgerMenu/BurgerMenu";
+import { useCatalogModalStore } from "@/store/useCatalogModalStore";
+import { useAutoPodborModalStore } from "@/store/useAutoPodborModal";
 
 const Header = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const { isOpen, setIsOpen } = useCatalogModalStore();
+  const { autoPodborOpen, togggleAutoPodborModal } = useAutoPodborModalStore();
+
+  const toggleModal = () => {
+    setIsOpen(!isOpen);
+  };
 
   const handleModalOpen = () => {
-    setIsModalOpen(true);
+    togggleAutoPodborModal(!autoPodborOpen);
   };
 
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-  };
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
 
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [setIsOpen]);
+
+  useEffect(() => {}, []);
   return (
-    <>
-      <header className={scss.Header}>
-        {/* Previous header content remains the same */}
-        <div className="container">
-          <div className={scss.content}>
-            <div className={scss.logo}>
-              <Image src={shina_logo} alt="" width={350} height={700} />
-            </div>
+    <header className={scss.Header}>
+      <div className="container">
+        <div className={scss.content}>
+          <div className={scss.logo}>
+            {isMobile && (
+              <div>
+                <BurgerMenu />
+              </div>
+            )}
+            <Image src={shina_logo} alt="Logo" width={350} height={700} />
+          </div>
 
+          {!isMobile && (
             <div className={scss.category_button}>
-              <Category_button />
+              <Category_button isOpen={isOpen} onClick={toggleModal} />
             </div>
+          )}
 
-            <div className={scss.search}>
+          <div className={scss.search}>
+            {isMobile && (
+              <div className={scss.find_place_moile}>
+                <button>
+                  <MdOutlinePlace /> Москва
+                </button>
+              </div>
+            )}
+            {isMobile ? (
+              <button className={scss.search_button_mobile}>
+                <LuSearch />
+              </button>
+            ) : (
               <Input />
-            </div>
+            )}
+          </div>
 
+          {!isMobile && (
             <div className={scss.features}>
               <div className={scss.favorite_icon}>
                 <GrFavorite /> <p>Избранные</p>
@@ -49,23 +87,25 @@ const Header = () => {
                 <LuGitCompare /> <p>Сравнение</p>
               </div>
             </div>
-          </div>
+          )}
+        </div>
 
-          <div className={scss.bottom_header}>
+        <div className={scss.bottom_header}>
+          {!isMobile && (
             <div className={scss.find_place}>
               <button>
-                {" "}
                 <MdOutlinePlace /> Москва
               </button>
             </div>
+          )}
 
+          {!isMobile && (
             <div className={scss.nav_links}>
               <ul>
                 <li onClick={handleModalOpen}>
                   <FaFire /> Подбор по авто
                 </li>
                 <li>
-                  {" "}
                   <MdOutlineDiscount /> Скидки дня
                 </li>
                 <li>Блог</li>
@@ -75,12 +115,15 @@ const Header = () => {
                 <li>Диски</li>
               </ul>
             </div>
-          </div>
+          )}
         </div>
-      </header>
-
-      <AutoPodbor_modal isOpen={isModalOpen} onClose={handleModalClose} />
-    </>
+      </div>
+      <AutoPodbor_modal
+        isOpen={autoPodborOpen}
+        onClose={handleModalOpen}
+      />
+      <CatalogModal isOpen={isOpen} />
+    </header>
   );
 };
 

@@ -1,4 +1,5 @@
 .Search_main {
+    width: 630px;
     .searchBar {
         display: flex;
         align-items: center;
@@ -6,7 +7,7 @@
         border-radius: 13px;
         padding: 4px 10px;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.085);
-        width: 620px !important;
+        width: 100%;
         border: 2px solid rgb(34, 104, 174);
 
         .input {
@@ -48,5 +49,14 @@
                 height: 24px;
             }
         }
+    }
+}
+
+
+
+
+@media(max-width: 1086px) {
+    .Search_main {
+        width: 100%;
     }
 }

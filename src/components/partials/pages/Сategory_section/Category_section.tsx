@@ -8,7 +8,6 @@ const Category_section = () => {
       <div className="container">
         <div className={scss.content}>
           <h1>Категории</h1>
-
           <div className={scss.main_card}>
             <Category_card />
           </div>

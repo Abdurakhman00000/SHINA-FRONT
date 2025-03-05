@@ -28,7 +28,7 @@ const ScrollToTop: React.FC = () => {
     className={scss.button}
       style={{
         position: "fixed",
-        bottom: "50px",
+        bottom: "80px",
         right: "20px",
         display: isVisible ? "block" : "none",
       }}
