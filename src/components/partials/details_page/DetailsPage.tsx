@@ -11,6 +11,10 @@ import { GoLinkExternal } from "react-icons/go";
 import { FaStar, FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import SelectComponent from "@/components/ui/selectComponent/SelectComponent";
 import PriceHistory from "@/components/ui/PriceHistory/PriceHistory";
+import { useGetDataByIdQuery } from "@/redux/api/data";
+import { useParams } from "next/navigation";
+import Link from "next/link";
+import { BiLoaderAlt } from "react-icons/bi";
 
 interface OptionType {
   value: string;
@@ -34,17 +38,27 @@ const options = [
 ];
 
 const DetailsPage = () => {
+  const { id } = useParams();
+  const { data: tyre, isLoading } = useGetDataByIdQuery(Number(id));
+
   const [selected, setSelected] = useState<string | OptionType>("product");
 
   const [active, setActive] = useState<number>(0);
+  if (isLoading) {
+    return (
+      <div className={scss.loader}>
+        <BiLoaderAlt size={40} className={scss.loader_icon} />
+      </div>
+    );
+  }
   return (
     <section className={scss.Main}>
       <div className="container">
         <div className={scss.content}>
           <div className={scss.header}>
             <div className={scss.title}>
-              <h2>Автомобильная шина Arivo Transito ARZ 6-C</h2>
-              <p>6 901 ₽ - 9 530 </p>
+              <h2>{tyre?.product_name}</h2>
+              <p>{tyre?.price}</p>
             </div>
             <div className={scss.action}>
               <span className={scss.rating}>4.5</span>
@@ -63,7 +77,7 @@ const DetailsPage = () => {
           </div>
           <div className={scss.product}>
             <div className={scss.img_slider}>
-              {img.map((el, index) => (
+              {tyre?.images.map((el, index) => (
                 <img
                   key={index}
                   className={`${active === index ? scss.active : ""}`}
@@ -82,7 +96,7 @@ const DetailsPage = () => {
                 <tbody>
                   <tr>
                     <td className={scss.title}>Сезон:</td>
-                    <td className={scss.value}>Летние </td>
+                    <td className={scss.value}>{tyre?.season} </td>
                   </tr>
                   <tr>
                     <td className={scss.title}>Шипы:</td>
@@ -97,7 +111,7 @@ const DetailsPage = () => {
               <p>Все характеристики</p>
             </div>
             <div className={scss.card}>
-              <h2 className={scss.card_price}>7 954 ₽</h2>
+              <h2 className={scss.card_price}>{tyre?.price}</h2>
               <ul className={scss.features}>
                 <li>
                   <FaTruck /> Доставка есть
@@ -118,7 +132,9 @@ const DetailsPage = () => {
               <a href="#" className={scss.description}>
                 Описание от магазина →
               </a>
-              <button className={scss.button}>В магазин</button>
+              <Link href={tyre?.url!} className={scss.button}>
+                В магазин
+              </Link>
             </div>
           </div>
           <div className={scss.category}>
@@ -164,10 +180,10 @@ const DetailsPage = () => {
             <div className={scss.column1}>
               <h4 className={scss.title}>Шины Arivo</h4>
               <p>
-                Диаметр: <span>16</span>
+                Диаметр: <span>{tyre?.diameter}</span>
               </p>
               <p>
-                Высота профиля: <span>30</span>
+                Высота профиля: <span>{tyre?.height}</span>
               </p>
               <a href="#">Описание от магазина →</a>
             </div>
@@ -195,26 +211,24 @@ const DetailsPage = () => {
               </span>
             </div>
             <div className={scss.column4}>
-              <span className={scss.price_item}>7 954 ₽</span>
-              <button>
+              <span className={scss.price_item}>{tyre?.price}</span>
+              <Link href={tyre?.url!}>
                 В магазин <GoLinkExternal />
-              </button>
+              </Link>
             </div>
           </div>
           {/* Цены */}
 
           {/* Характеристики */}
           <div className={scss.specs_card}>
-            <h2 className={scss.title}>
-              Характеристики Arivo Transito ARZ 6-C
-            </h2>
+            <h2 className={scss.title}>{tyre?.product_name}</h2>
             <div className={scss.specs}>
               <div className={scss.column}>
                 <h3 className={scss.subtitle}>Общие характеристики</h3>
                 <div className={scss.row}>
                   <span className={scss.label}>Бренд</span>
                   <a href="#" className={scss.link}>
-                    Marshal
+                    {tyre?.brand}
                   </a>
                 </div>
                 <div className={scss.row}>
@@ -225,7 +239,7 @@ const DetailsPage = () => {
                 </div>
                 <div className={scss.row}>
                   <span className={scss.label}>Сезонность</span>
-                  <span className={scss.value}>Летние</span>
+                  <span className={scss.value}>{tyre?.season}</span>
                 </div>
               </div>
 
