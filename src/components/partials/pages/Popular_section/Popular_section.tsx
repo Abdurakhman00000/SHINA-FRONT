@@ -3,9 +3,10 @@ import scss from "./Popular_section.module.scss";
 import Product_card from "@/components/ui/cards/product_card/Product_card";
 interface Popular_sectionProps {
   data: Tyres[];
+  isLaoding?: boolean;
 }
 
-const Popular_section = ({ data }: Popular_sectionProps) => {
+const Popular_section = ({ data, isLaoding }: Popular_sectionProps) => {
   if (!data) {
     return (
       <div>
