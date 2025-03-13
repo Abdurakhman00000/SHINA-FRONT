@@ -19,7 +19,7 @@ const SLIDES = [
     id: 1,
     title: "10 лучших\nбюджетных шин",
     buttonText: "Вперед на распродажу",
-    image: "/assets/hero/hero-shina.svg",
+    image: "/assets/hero-shina.svg",
     background: "transparent",
     altText: "Праздничные скидки баннер",
   },
