@@ -58,7 +58,7 @@ const DetailsPage = () => {
           <div className={scss.header}>
             <div className={scss.title}>
               <h2>{tyre?.product_name}</h2>
-              <p>{tyre?.price}</p>
+              <p>{tyre?.price} Р</p>
             </div>
             <div className={scss.action}>
               <span className={scss.rating}>4.5</span>
@@ -76,65 +76,69 @@ const DetailsPage = () => {
             </div>
           </div>
           <div className={scss.product}>
-            <div className={scss.img_slider}>
-              {tyre?.images.map((el, index) => (
-                <img
-                  key={index}
-                  className={`${active === index ? scss.active : ""}`}
-                  src={el}
-                  alt="шина"
-                  onClick={() => setActive(index)}
-                />
-              ))}
+            <div className={scss.image_box}>
+              <div className={scss.img_slider}>
+                {tyre?.images.map((el, index) => (
+                  <img
+                    key={index}
+                    className={`${active === index ? scss.active : ""}`}
+                    src={el}
+                    alt="шина"
+                    onClick={() => setActive(index)}
+                  />
+                ))}
+              </div>
+              <div className={scss.img_wrapper}>
+                <img src={img[active]} alt="шина" />
+              </div>
             </div>
-            <div className={scss.img_wrapper}>
-              <img src={img[active]} alt="шина" />
-            </div>
-            <div className={scss.about}>
-              <h3>О товаре</h3>
-              <table>
-                <tbody>
-                  <tr>
-                    <td className={scss.title}>Сезон:</td>
-                    <td className={scss.value}>{tyre?.season} </td>
-                  </tr>
-                  <tr>
-                    <td className={scss.title}>Шипы:</td>
-                    <td className={scss.value}>Нет</td>
-                  </tr>
-                  <tr>
-                    <td className={scss.title}>Тип автомобиля:</td>
-                    <td>225/75 R16, 185/75 R16</td>
-                  </tr>
-                </tbody>
-              </table>
-              <p>Все характеристики</p>
-            </div>
-            <div className={scss.card}>
-              <h2 className={scss.card_price}>{tyre?.price}</h2>
-              <ul className={scss.features}>
-                <li>
-                  <FaTruck /> Доставка есть
-                </li>
-                <li>
-                  <FaCreditCard /> Оплата картой и наличными
-                </li>
-                <li>
-                  <FaStore /> Самовывоз есть
-                </li>
-                <li className={scss.store}>
-                  <FaShoppingCart /> Колёса Даром
-                  <span className={scss.rating}>
-                    <IoMdStar className={scss.star} /> 4.2 · 132 оценки
-                  </span>
-                </li>
-              </ul>
-              <a href="#" className={scss.description}>
-                Описание от магазина →
-              </a>
-              <Link href={tyre?.url!} className={scss.button}>
-                В магазин
-              </Link>
+            <div className={scss.info_box}>
+              <div className={scss.about}>
+                <h3>О товаре</h3>
+                <table>
+                  <tbody>
+                    <tr>
+                      <td className={scss.title}>Сезон:</td>
+                      <td className={scss.value}>{tyre?.season} </td>
+                    </tr>
+                    <tr>
+                      <td className={scss.title}>Шипы:</td>
+                      <td className={scss.value}>Нет</td>
+                    </tr>
+                    <tr>
+                      <td className={scss.title}>Тип автомобиля:</td>
+                      <td>225/75 R16, 185/75 R16</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p>Все характеристики</p>
+              </div>
+              <div className={scss.card}>
+                <h2 className={scss.card_price}>{tyre?.price}</h2>
+                <ul className={scss.features}>
+                  <li>
+                    <FaTruck /> Доставка есть
+                  </li>
+                  <li>
+                    <FaCreditCard /> Оплата картой и наличными
+                  </li>
+                  <li>
+                    <FaStore /> Самовывоз есть
+                  </li>
+                  <li className={scss.store}>
+                    <FaShoppingCart /> Колёса Даром
+                    <span className={scss.rating}>
+                      <IoMdStar className={scss.star} /> 4.2 · 132 оценки
+                    </span>
+                  </li>
+                </ul>
+                <a href="#" className={scss.description}>
+                  Описание от магазина →
+                </a>
+                <Link href={tyre?.url!} className={scss.button}>
+                  В магазин
+                </Link>
+              </div>
             </div>
           </div>
           <div className={scss.category}>
