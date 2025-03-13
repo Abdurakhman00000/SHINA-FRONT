@@ -60,6 +60,21 @@ a {
   padding: 0 var(--container-padding);
 }
 
+.skeleton {
+  background: linear-gradient(90deg, #eee 25%, #ddd 50%, #eee 75%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite linear;
+  border-radius: 4px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
 .scroll-hidden {
   scrollbar-width: none;
   -ms-overflow-style: none;
