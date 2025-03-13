@@ -15,6 +15,7 @@ import CatalogModal from "@/components/ui/modals/catalog_modal/Catalog_modal";
 import BurgerMenu from "@/components/mobile/ui-elements/burgerMenu/BurgerMenu";
 import { useCatalogModalStore } from "@/store/useCatalogModalStore";
 import { useAutoPodborModalStore } from "@/store/useAutoPodborModal";
+import Link from "next/link";
 
 const Header = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -52,7 +53,9 @@ const Header = () => {
                 <BurgerMenu />
               </div>
             )}
+            <Link href='/'>
             <Image src={shina_logo} alt="Logo" width={350} height={700} />
+            </Link>
           </div>
 
           {!isMobile && (
@@ -81,10 +84,14 @@ const Header = () => {
           {!isMobile && (
             <div className={scss.features}>
               <div className={scss.favorite_icon}>
+                <Link href='/favorite'>
                 <GrFavorite /> <p>Избранные</p>
+                </Link>
               </div>
               <div className={scss.compare_icon}>
+                <Link href='/compare'>
                 <LuGitCompare /> <p>Сравнение</p>
+                </Link>
               </div>
             </div>
           )}

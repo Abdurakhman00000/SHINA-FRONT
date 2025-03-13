@@ -1,10 +1,12 @@
 .Main {
-    background: linear-gradient(135deg, #1f79df 0%, #8a2be2 100%); /* Градиент от синего к фиолетовому */
-    margin-top: 80px;
-    padding: 60px 20px; /* Увеличил верхний отступ и сделал универсальным */
-    min-height: 500px; /* Минимальная высота для эффектности */
-    position: relative;
-    overflow: hidden; /* Для эффектов, если добавим дальше */
+    background-image: url('/assets/hero-shina.svg');
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: auto;
+    padding: 80px 0;
+    margin: 120px 0;
   
     &::before {
       content: '';
@@ -17,7 +19,7 @@
       
       z-index: 0;
     }
-  
+   
     .container {
       position: relative;
       z-index: 1; /* Чтобы контент был поверх фона */

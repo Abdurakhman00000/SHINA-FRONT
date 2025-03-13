@@ -36,9 +36,11 @@ const Product_card = ({ tyre }: Product_cardProps) => {
             <Link href={`/details-page/${tyre.id}`} className={scss.more}>
               Подробнее
             </Link>
+            <Link href='/compare'>
             <button className={scss.icon}>
               <RiScales3Line />
             </button>
+            </Link>
           </div>
         </div>
       </div>

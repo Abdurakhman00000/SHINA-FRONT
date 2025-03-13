@@ -17,4 +17,4 @@ const Category_section = () => {
   );
 };
 
-export default Category_section;
+export default Category_section; 
