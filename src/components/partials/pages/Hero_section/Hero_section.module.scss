@@ -3,6 +3,7 @@
 
   .content {
     position: relative;
+    z-index: -1;
     height: 450px;
     background: rgba(155, 41, 255, 0.97);
     cursor: pointer;
@@ -12,6 +13,7 @@
       &::after {
         content: "";
         position: absolute;
+        z-index: -1;
         top: 0;
         left: 0;
         right: 0;
