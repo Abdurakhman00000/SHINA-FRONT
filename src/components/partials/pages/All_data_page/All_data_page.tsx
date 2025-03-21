@@ -21,6 +21,7 @@ const All_data_page: React.FC<AlldataPagePropf> = ({
           {data.results.map((tyre) => (
             <Product_card key={tyre.id} tyre={tyre} />
           ))}
+
         </div>
         {data.count > data.results.length && (
           <div className={scss.loadMore_button}>

@@ -14,6 +14,7 @@ import CatalogModal from "@/components/ui/modals/catalog_modal/Catalog_modal";
 import BurgerMenu from "@/components/mobile/ui-elements/burgerMenu/BurgerMenu";
 import { useCatalogModalStore } from "@/store/useCatalogModalStore";
 import { useAutoPodborModalStore } from "@/store/useAutoPodborModal";
+
 import Search from "@/components/ui/search/Search";
 
 import Link from "next/link";
