@@ -2,7 +2,7 @@ import React from "react";
 import scss from "./Recomend_section.module.scss";
 import Product_card from "@/components/ui/cards/product_card/Product_card";
 interface Recomend_sectionProps {
-  data: Tyres[];
+  data: Product;
 }
 const Recomend_section = ({ data }: Recomend_sectionProps) => {
   if (!data) {
@@ -19,7 +19,7 @@ const Recomend_section = ({ data }: Recomend_sectionProps) => {
           <h1>Рекомендуемые</h1>
 
           <div className={scss.main_card}>
-            {data.map((tyre) => (
+            {data.results.map((tyre) => (
               <Product_card key={tyre.id} tyre={tyre} />
             ))}
           </div>

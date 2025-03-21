@@ -9,9 +9,10 @@ import { useGetDataQuery } from "@/redux/api/data";
 import CardSkeleton from "../ui/skeletons/card_skeleton/CardSkeleton";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
+import NoData from "../ui/no_data/NoData";
 const MainPage = () => {
   const { data, isLoading } = useGetDataQuery();
-
+  console.log("DATA",data)
   if (isLoading) {
     return (
       <div
@@ -28,11 +29,7 @@ const MainPage = () => {
     );
   }
   if (!data) {
-    return (
-      <div>
-        <p>Нет данных</p>
-      </div>
-    );
+    return <NoData />;
   }
   return (
     <>

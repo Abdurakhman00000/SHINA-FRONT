@@ -1,0 +1,10 @@
+.DataResultPage {
+  .content {
+    display: flex;
+    gap: 20px;
+    padding-inline: 20px;
+    @media (max-width:840px) {
+        flex-direction: column;
+    }
+  }
+}

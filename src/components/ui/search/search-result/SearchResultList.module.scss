@@ -1,0 +1,32 @@
+.SearchResultList {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-height: 200px;
+  overflow-y: scroll;
+  .search_list_items {
+    list-style: none;
+    scrollbar-width: 2px;
+    padding-inline: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    &:hover {
+      background: rgba(0, 0, 0, 0.1);
+      color: #007bff;
+      transition: background 0.5s ease;
+      font-size: 16px;
+    }
+  }
+  .search_list_items_link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    .name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 350px;
+    }
+  }
+}

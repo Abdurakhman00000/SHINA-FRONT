@@ -1,0 +1,25 @@
+.FilterDropdownInput {
+  .content {
+    .input_box {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      input {
+        height: 30px;
+        width: 100%;
+        border: 1px solid gray;
+        outline: none;
+        border-radius: 4px;
+        padding-inline: 5px;
+      }
+      .input_two {
+        height: 30px;
+        width: 100%;
+        border: 1px solid gray;
+        outline: none;
+        border-radius: 4px;
+        padding-inline: 5px;
+      }
+    }
+  }
+}

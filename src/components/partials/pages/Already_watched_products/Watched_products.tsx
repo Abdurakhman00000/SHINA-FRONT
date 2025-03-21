@@ -2,7 +2,7 @@ import React from "react";
 import scss from "./Watched_products.module.scss";
 import Product_card from "@/components/ui/cards/product_card/Product_card";
 interface Watched_productsProps {
-  data: Tyres[];
+  data: Product;
 }
 
 const Watched_products = ({ data }: Watched_productsProps) => {
@@ -13,6 +13,7 @@ const Watched_products = ({ data }: Watched_productsProps) => {
       </div>
     );
   }
+
   return (
     <section className={scss.Main}>
       <div className="container">
@@ -20,7 +21,7 @@ const Watched_products = ({ data }: Watched_productsProps) => {
           <h1>Просмотренные товары</h1>
 
           <div className={scss.main_card}>
-            {data.map((tyre) => (
+            {data.results.map((tyre) => (
               <Product_card key={tyre.id} tyre={tyre} />
             ))}
           </div>
