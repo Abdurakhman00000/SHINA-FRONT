@@ -18,6 +18,6 @@ import {
     baseQuery: baseQueryExtended,
     refetchOnFocus: true,
     refetchOnReconnect: true,
-    tagTypes: ["data"],
+    tagTypes: ["data","search"],
     endpoints: () => ({}),
   });

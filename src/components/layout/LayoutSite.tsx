@@ -12,7 +12,6 @@ interface iLayoutSiteProps {
 }
 const LayoutSite: FC<iLayoutSiteProps> = ({ children }) => {
   const isMobile = useMediaQuery("max-width:768px");
-  console.log("isMobile", isMobile);
   return (
     <div className={scss.LayoutSite}>
       <Header />

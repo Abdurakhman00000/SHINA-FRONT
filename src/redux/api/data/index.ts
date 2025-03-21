@@ -1,5 +1,6 @@
 import { api as index } from "..";
 import { DATA_TYPES } from "./types";
+import qs from "qs";
 
 const api = index.injectEndpoints({
   endpoints: (build) => ({
@@ -7,13 +8,18 @@ const api = index.injectEndpoints({
       DATA_TYPES.GetDatasResponse,
       DATA_TYPES.GetDatasRequest
     >({
-      query: () => ({
-        url: "/tyres",
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }),
+      query: (queryString) => {
+        const queryParams = qs.stringify(queryString, {
+          arrayFormat: "repeat",
+        });
+        return {
+          url: `/tyres?${queryParams}`,
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+      },
       providesTags: ["data"],
     }),
     getDataById: build.query<

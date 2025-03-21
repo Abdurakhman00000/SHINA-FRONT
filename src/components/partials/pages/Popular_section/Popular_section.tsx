@@ -2,7 +2,7 @@ import React from "react";
 import scss from "./Popular_section.module.scss";
 import Product_card from "@/components/ui/cards/product_card/Product_card";
 interface Popular_sectionProps {
-  data: Tyres[];
+  data: Product;
   isLaoding?: boolean;
 }
 
@@ -20,7 +20,7 @@ const Popular_section = ({ data, isLaoding }: Popular_sectionProps) => {
         <div className={scss.content}>
           <h1>Популярные</h1>
           <div className={scss.main_card}>
-            {data.map((tyre) => (
+            {data.results.map((tyre) => (
               <Product_card key={tyre.id} tyre={tyre} />
             ))}
           </div>
