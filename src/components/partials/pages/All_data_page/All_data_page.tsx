@@ -1,5 +1,6 @@
 "use client";
 
+
 import React from "react";
 import scss from "./All_data_page.module.scss";
 import Product_card from "@/components/ui/cards/product_card/Product_card";
@@ -22,6 +23,7 @@ const All_data_page: React.FC<AlldataPagePropf> = ({
           {data.results.map((tyre) => (
             <Product_card key={tyre.id} tyre={tyre} />
           ))}
+
         </div>
         {data.count > data.results.length && (
           <div className={scss.loadMore_button}>
