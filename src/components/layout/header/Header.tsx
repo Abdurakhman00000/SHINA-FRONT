@@ -16,6 +16,8 @@ import { useCatalogModalStore } from "@/store/useCatalogModalStore";
 import { useAutoPodborModalStore } from "@/store/useAutoPodborModal";
 import Search from "@/components/ui/search/Search";
 
+import Link from "next/link";
+
 const Header = () => {
   const [isMobile, setIsMobile] = useState(false);
   const { isOpen, setIsOpen } = useCatalogModalStore();
@@ -52,7 +54,9 @@ const Header = () => {
                 <BurgerMenu />
               </div>
             )}
+            <Link href='/'>
             <Image src={shina_logo} alt="Logo" width={350} height={700} />
+            </Link>
           </div>
 
           {!isMobile && (
@@ -82,10 +86,14 @@ const Header = () => {
           {!isMobile && (
             <div className={scss.features}>
               <div className={scss.favorite_icon}>
+                <Link href='/favorite'>
                 <GrFavorite /> <p>Избранные</p>
+                </Link>
               </div>
               <div className={scss.compare_icon}>
+                <Link href='/compare'>
                 <LuGitCompare /> <p>Сравнение</p>
+                </Link>
               </div>
             </div>
           )}

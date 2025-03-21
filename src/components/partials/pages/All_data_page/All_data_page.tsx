@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import scss from "./All_data_page.module.scss";
 import Product_card from "@/components/ui/cards/product_card/Product_card";
