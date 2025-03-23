@@ -31,7 +31,7 @@ const FilterBar = () => {
       heigthOfProfile,
       indexOfSpeed,
       loadIndex,
-      page
+      page,
     });
   }, [
     selectedBrand,
@@ -42,11 +42,11 @@ const FilterBar = () => {
     heigthOfProfile,
     indexOfSpeed,
     loadIndex,
-    page
+    page,
   ]);
 
   const { data, isLoading, isFetching, error } = useGetDataQuery(queryString);
-
+  console.log(data);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const menuRef: React.Ref<HTMLDivElement> | undefined = useRef(null);
 
@@ -65,8 +65,13 @@ const FilterBar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  const handleLoadMore = () => {
+  const next = () => {
     setPage(page + 1);
+  };
+  const prev = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    }
   };
   return (
     <section className={scss.FilterBar}>
@@ -134,7 +139,7 @@ const FilterBar = () => {
             <Spin indicator={<LoadingOutlined spin />} size="large" />
           </div>
         ) : data && !error ? (
-          <All_data_page data={data} handleLoadMore={handleLoadMore} />
+          <All_data_page data={data} next={next} prev={prev} page={page} />
         ) : (
           <NoData />
         )}

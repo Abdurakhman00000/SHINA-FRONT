@@ -16,8 +16,8 @@ import { useCatalogModalStore } from "@/store/useCatalogModalStore";
 import { useAutoPodborModalStore } from "@/store/useAutoPodborModal";
 
 import Search from "@/components/ui/search/Search";
-import Link from "next/link";
 
+import Link from "next/link";
 
 const Header = () => {
   const [isMobile, setIsMobile] = useState(false);

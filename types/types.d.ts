@@ -17,7 +17,7 @@ interface Tyres {
   height: string;
   diameter: string;
   availability: string;
-  images: string;
+  images: string[];
   url: string;
 }
 
@@ -38,5 +38,6 @@ interface Params {
 }
 
 interface SearchParams {
-  name: string;
+  name?: string;
+  search_brand?: string;
 }
