@@ -79,7 +79,7 @@ export const brands: Options[] = [
 
 export const seasonality: Options[] = [
   { id: 1, label: "Летние", value: "Летние" },
-  { id: 2, label: "Зимние", value: "Зимные" },
+  { id: 2, label: "Зимние", value: "Зимние" },
   { id: 3, label: "Всесезонные", value: "Всесезонные" },
 ];
 
