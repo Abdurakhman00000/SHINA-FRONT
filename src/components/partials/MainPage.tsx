@@ -6,13 +6,11 @@ import Category_section from "./pages/Сategory_section/Category_section";
 import Recomend_section from "./pages/Recomend_section/Recomend_section";
 import Watched_products from "./pages/Already_watched_products/Watched_products";
 import { useGetDataQuery } from "@/redux/api/data";
-import CardSkeleton from "../ui/skeletons/card_skeleton/CardSkeleton";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
 import NoData from "../ui/no_data/NoData";
 const MainPage = () => {
   const { data, isLoading } = useGetDataQuery();
-  console.log("DATA",data)
   if (isLoading) {
     return (
       <div

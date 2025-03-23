@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import scss from "./FilterDropdownInput.module.scss";
 import ToggleButton from "../../toggle_button/ToggleButton";
+import { DebounceInput } from "react-debounce-input";
 const FilterDropdownInput: React.FC<FilterDropdownInputProps> = ({
   onChange,
   placeholder,
@@ -34,7 +35,8 @@ const FilterDropdownInput: React.FC<FilterDropdownInputProps> = ({
           <>
             {inputType === "one" ? (
               <div className={scss.input_box}>
-                <input
+                <DebounceInput
+                  debounceTimeout={500}
                   type="text"
                   placeholder={placeholder}
                   onChange={(e) => setInputValue(e.target.value)}
@@ -42,13 +44,15 @@ const FilterDropdownInput: React.FC<FilterDropdownInputProps> = ({
               </div>
             ) : inputType === "two" ? (
               <div className={scss.input_box}>
-                <input
+                <DebounceInput
+                  debounceTimeout={500}
                   type="text"
                   placeholder={`От ${placeholders![0]}`}
                   onChange={(e) => handleInputChange(0, e.target.value)}
                   className={scss.input_two}
                 />
-                <input
+                <DebounceInput
+                  debounceTimeout={500}
                   type="text"
                   placeholder={`До ${placeholders![1]}`}
                   onChange={(e) => handleInputChange(1, e.target.value)}
