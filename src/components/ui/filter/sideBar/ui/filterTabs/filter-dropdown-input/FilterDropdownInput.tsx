@@ -6,7 +6,7 @@ const FilterDropdownInput: React.FC<FilterDropdownInputProps> = ({
   onChange,
   placeholder,
   title,
-  inputType,
+  inputType, 
   placeholders,
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
