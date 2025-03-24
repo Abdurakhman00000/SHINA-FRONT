@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import scss from "./FilterDropdownInput.module.scss";
-import ToggleButton from "../../toggle_button/ToggleButton";
+import ToggleButton from "../../toggle_button/ToggleButton"; 
+
 import { DebounceInput } from "react-debounce-input";
 const FilterDropdownInput: React.FC<FilterDropdownInputProps> = ({
   onChange,
   placeholder,
   title,
-  inputType,
+  inputType, 
   placeholders,
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
