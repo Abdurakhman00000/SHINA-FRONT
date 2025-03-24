@@ -17,10 +17,16 @@ const SearchResultList: React.FC<SearchResultListProps> = ({
             href={`/details-page/${item.id}`}
             className={scss.search_list_items_link}
           >
+            <picture>
+              <img
+                src={item.images[0]}
+                alt="image"
+                style={{ width: 30, height: 30, borderRadius: "50%" }}
+              />
+            </picture>
             <p className={scss.name}>
               {option === "name" ? item.product_name : item.brand}
             </p>
-            <p>{item.price}</p>
           </Link>
         </li>
       ))}

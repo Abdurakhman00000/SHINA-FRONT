@@ -20,13 +20,7 @@ interface OptionType {
   value: string;
   label: string;
 }
-const img = [
-  "https://static.price.ru/images/models/401x401/avtomobilnaya-shina/marshal-mh12/52e31fcff684980e1127dc63f22bf413.JPEG",
-  "https://www.kivano.kg/images/product/136706/full/1716285700_96966300.jpg",
-  "https://vsekolesa.ru/uploads/product/368/5-T608x0.jpg",
-  "https://storage.yandexcloud.net/nik-auto/vezemkolesa/www/assets/catalog/tyre/Michelin/pilot_sport_4_s/pilot_sport_4_s/pilot_sport_4_s_watermark_1.jpg",
-  "https://shinaufa.ru/images/large/tyres/michelin/pilot-sport-ps2.jpg",
-];
+
 const options = [
   { value: "product", label: "О товаре" },
   { value: "price", label: "Цены" },
@@ -58,7 +52,7 @@ const DetailsPage = () => {
           <div className={scss.header}>
             <div className={scss.title}>
               <h2>{tyre?.product_name}</h2>
-              <p>{tyre?.price} Р</p>
+              <p>{Math.trunc(Number(tyre?.price))} ₽</p>
             </div>
             <div className={scss.action}>
               <span className={scss.rating}>4.5</span>
@@ -89,7 +83,7 @@ const DetailsPage = () => {
                 ))}
               </div>
               <div className={scss.img_wrapper}>
-                <img src={img[active]} alt="шина" />
+                <img src={tyre?.images[active]} alt="шина" />
               </div>
             </div>
             <div className={scss.info_box}>
@@ -114,7 +108,7 @@ const DetailsPage = () => {
                 <p>Все характеристики</p>
               </div>
               <div className={scss.card}>
-                <h2 className={scss.card_price}>{tyre?.price}</h2>
+                <h2 className={scss.card_price}>{Math.trunc(Number(tyre?.price))} ₽</h2>
                 <ul className={scss.features}>
                   <li>
                     <FaTruck /> Доставка есть
@@ -176,11 +170,7 @@ const DetailsPage = () => {
             </div>
           </div>
           <div className={scss.price_card}>
-            <img
-              className={scss.product_img}
-              src="https://www.kivano.kg/images/product/136706/full/1716285700_96966300.jpg"
-              alt="img"
-            />
+            <img className={scss.product_img} src={tyre?.images[0]} alt="img" />
             <div className={scss.column1}>
               <h4 className={scss.title}>Шины Arivo</h4>
               <p>
@@ -215,7 +205,7 @@ const DetailsPage = () => {
               </span>
             </div>
             <div className={scss.column4}>
-              <span className={scss.price_item}>{tyre?.price}</span>
+              <span className={scss.price_item}>{Math.trunc(Number(tyre?.price))} ₽</span>
               <Link href={tyre?.url!}>
                 В магазин <GoLinkExternal />
               </Link>
