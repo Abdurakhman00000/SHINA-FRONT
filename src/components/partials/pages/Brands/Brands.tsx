@@ -7,7 +7,7 @@ const Brands = () => {
   return (
     <div className={scss.Brands}>
       <div className={scss.content}>
-        <h2 className={scss.brand_title}>Бранды</h2>
+        <h2 className={scss.brand_title}>Подбор шин по бренду</h2>
         <ul className={scss.brand_list}>
           {brands.map((brand) => (
             <li key={brand.id} className={scss.brand_list_item}>

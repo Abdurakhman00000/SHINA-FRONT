@@ -1,12 +1,14 @@
 .Brands {
+  padding-top: 50px;
   .content {
     padding-inline: 20px;
     display: flex;
     flex-direction: column;
     .brand_title {
-      color: white;
-      font-size: 20px;
-      font-weight: 600;
+      color: black;
+      font-size: 25px;
+      font-weight: 500;
+      margin-bottom: 30px;
     }
     .brand_list {
       display: grid;
