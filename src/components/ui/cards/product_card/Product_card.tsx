@@ -21,7 +21,7 @@ const Product_card = ({ tyre }: Product_cardProps) => {
         </div>
         <div className={scss.product_info}>
           <div className={scss.price}>
-            <p>{tyre.price}</p>
+            <p>{Math.trunc(Number(tyre.price))} ₽</p>
             <span>&#x2022; {tyre.availability}</span>
           </div>
           <div className={scss.title}>
@@ -36,10 +36,10 @@ const Product_card = ({ tyre }: Product_cardProps) => {
             <Link href={`/details-page/${tyre.id}`} className={scss.more}>
               Подробнее
             </Link>
-            <Link href='/compare'>
-            <button className={scss.icon}>
-              <RiScales3Line />
-            </button>
+            <Link href="/compare">
+              <button className={scss.icon}>
+                <RiScales3Line />
+              </button>
             </Link>
           </div>
         </div>

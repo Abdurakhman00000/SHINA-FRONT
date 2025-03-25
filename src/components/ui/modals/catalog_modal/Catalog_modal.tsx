@@ -1,84 +1,42 @@
-
+import { Modal } from "antd";
 import scss from "./Catalog_modal.module.scss";
-import winterTire from "../../../../../public/assets/catalog_images/wheels_img_shina.jpg";
-import rimsImg from "../../../../../public/assets/catalog_images/rims1_shina.jpg";
+import { useCatalogModalStore } from "@/store/useCatalogModalStore";
+import Link from "next/link";
+import { catalogs } from "@/constants/data";
 import Image from "next/image";
-import { StaticImageData } from "next/image";
-import { useState } from "react";
 
-
-interface Product {
-  id: number;
-  type: string;
-  image: string | StaticImageData;
-}
-
-const tires: Product[] = [
-  { id: 1, type: "Зимние", image: winterTire },
-  { id: 2, type: "Летние", image: winterTire },
-  { id: 3, type: "Всесезонные", image: winterTire },
-  { id: 4, type: "Внедорожные", image: winterTire },
-  { id: 5, type: "Мотошины", image: winterTire },
-  { id: 6, type: "Коммерческие", image: winterTire },
-];
-
-const wheels: Product[] = [
-  { id: 7, type: "Литые", image: rimsImg },
-  { id: 8, type: "Штампованные", image: rimsImg },
-  { id: 9, type: "Кованные", image: rimsImg },
-  { id: 10, type: "Стальные", image: rimsImg },
-  { id: 11, type: "Гоночные", image: rimsImg },
-  { id: 12, type: "Кованные", image: rimsImg },
-];
-
-interface CatalogModalProps {
-  isOpen: boolean;
-}
-
-const CatalogModal: React.FC<CatalogModalProps> = ({ isOpen }) => {
-
-  const [selectedCategory, setSelectedCategory] = useState<"tires" | "wheels">(
-    "tires"
-  );
-
-
-  const products = selectedCategory === "tires" ? tires : wheels;
-
- 
+const CatalogModal = () => {
+  const { isOpen, setIsOpen } = useCatalogModalStore();
+  const onChancel = () => {
+    setIsOpen(false);
+  };
   return (
-    <div className={`${scss.modal} ${isOpen ? scss.open : ""}`}>
-      <div className="container">
-        <div className={scss.content}>
-          <div className={scss.select}>
-            <p
-              className={selectedCategory === "tires" ? scss.active : ""}
-              onClick={() => setSelectedCategory("tires")}
-            >
-              Шины
-            </p>
-            <p
-              className={selectedCategory === "wheels" ? scss.active : ""}
-              onClick={() => setSelectedCategory("wheels")}
-            >
-              Диски
-            </p>
-          </div>
-          <div className={scss.results}>
-            {products.map((product) => (
-              <div key={product.id} className={scss.product}>
-                <p>{product.type}</p>
-                <Image
-                  width={800}
-                  height={350}
-                  src={product.image}
-                  alt={product.type}
-                />
-              </div>
-            ))}
-          </div>
+    <Modal open={isOpen} onCancel={onChancel} footer={null}>
+      <div className={scss.Catalog}>
+        <div className={scss.catalog_nav}>
+          <h3 className={scss.catalog_title}>Шины</h3>
         </div>
+        <ul className={scss.catalog_list}>
+          {catalogs.map((catalog) => (
+            <li className={scss.catalog_list_item} key={catalog.id}>
+              <Link
+                href={`/data-results/${catalog.id}`}
+                className={scss.catalog_list_item_link}
+              >
+                <Image
+                  src={catalog.img}
+                  alt={catalog.type}
+                  width={150}
+                  height={150}
+                />
+                <p>{catalog.type}</p>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <div></div>
       </div>
-    </div>
+    </Modal>
   );
 };
 

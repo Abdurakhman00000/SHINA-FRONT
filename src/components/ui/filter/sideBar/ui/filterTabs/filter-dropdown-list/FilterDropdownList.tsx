@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import scss from "./FilterDropdownList.module.scss";
 import ToggleButton from "../../toggle_button/ToggleButton";
+import { FilterProps, Options } from "@/components/ui/filter/types/types";
 
 const FilterDropdownList: React.FC<FilterProps> = ({
   onChange,
@@ -8,6 +9,7 @@ const FilterDropdownList: React.FC<FilterProps> = ({
   title,
   searchInput,
   searchPlaceholder,
+  id,
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<string[]>([]);
@@ -33,6 +35,16 @@ const FilterDropdownList: React.FC<FilterProps> = ({
         : [...selectedValues, value]
     );
   };
+
+  useEffect(() => {
+    if (id) {
+      const selected = options.filter((option) => option.id === id);
+      if (selected.length > 0) {
+        setSelectedOption([selected[0].value]);
+      }
+    }
+  }, [id]);
+
   const toggleDropdown = () => setIsOpen(!isOpen);
   return (
     <div className={scss.FilterDropdown}>

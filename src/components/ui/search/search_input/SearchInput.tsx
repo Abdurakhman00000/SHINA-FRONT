@@ -24,7 +24,6 @@ const SearchInput = () => {
   const handleSizeChange = (e: React.FormEvent<HTMLOptionElement>) => {
     setOption(e.currentTarget.value);
   };
-  console.log(selectedOption);
   return (
     <div className={scss.SearchInput}>
       <div className={scss.input_wrapper}>

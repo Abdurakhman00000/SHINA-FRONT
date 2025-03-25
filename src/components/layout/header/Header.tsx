@@ -55,8 +55,8 @@ const Header = () => {
                 <BurgerMenu />
               </div>
             )}
-            <Link href='/'>
-            <Image src={shina_logo} alt="Logo" width={350} height={700} />
+            <Link href="/">
+              <Image src={shina_logo} alt="Logo" width={350} height={700} />
             </Link>
           </div>
 
@@ -65,35 +65,17 @@ const Header = () => {
               <Category_button isOpen={isOpen} onClick={toggleModal} />
             </div>
           )}
-
-          {/* <div className={scss.search}>
-            {isMobile && (
-              <div className={scss.find_place_moile}>
-                <button>
-                  <MdOutlinePlace /> Москва
-                </button>
-              </div>
-            )}
-            {isMobile ? (
-              <button className={scss.search_button_mobile}>
-                <LuSearch />
-              </button>
-            ) : (
-              <Input />
-            )}
-          </div> */}
-          <Search  />
-
+          <Search />
           {!isMobile && (
             <div className={scss.features}>
               <div className={scss.favorite_icon}>
-                <Link href='/favorite'>
-                <GrFavorite /> <p>Избранные</p>
+                <Link href="/favorite">
+                  <GrFavorite /> <p>Избранные</p>
                 </Link>
               </div>
               <div className={scss.compare_icon}>
-                <Link href='/compare'>
-                <LuGitCompare /> <p>Сравнение</p>
+                <Link href="/compare">
+                  <LuGitCompare /> <p>Сравнение</p>
                 </Link>
               </div>
             </div>
@@ -119,17 +101,20 @@ const Header = () => {
                   <MdOutlineDiscount /> Скидки дня
                 </li>
                 <li>Блог</li>
-                <li>Бренды</li>
+                <li>
+                  <Link href="/brand">Бренды</Link>
+                </li>
                 <div className={scss.line}></div>
-                <li>Шины</li>
-                <li>Диски</li>
+                <li>
+                  <Link href="/data-results/all">Шины</Link>
+                </li>
               </ul>
             </div>
           )}
         </div>
       </div>
       <AutoPodbor_modal isOpen={autoPodborOpen} onClose={handleModalOpen} />
-      <CatalogModal isOpen={isOpen} />
+      <CatalogModal />
     </header>
   );
 };

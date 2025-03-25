@@ -3,6 +3,7 @@ import scss from "./FilterDropdownInput.module.scss";
 import ToggleButton from "../../toggle_button/ToggleButton"; 
 
 import { DebounceInput } from "react-debounce-input";
+import { FilterDropdownInputProps } from "@/components/ui/filter/types/types";
 const FilterDropdownInput: React.FC<FilterDropdownInputProps> = ({
   onChange,
   placeholder,
