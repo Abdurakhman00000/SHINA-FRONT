@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import scss from "./FilterBar.module.scss";
 import FilterDropdownList from "./ui/filterTabs/filter-dropdown-list/FilterDropdownList";
-import { brands, index_of_speed, seasonality } from "../types/options/data";
+import { index_of_speed, seasonality } from "../types/options/data";
 import FilterDropdownInput from "./ui/filterTabs/filter-dropdown-input/FilterDropdownInput";
 import All_data_page from "@/components/partials/pages/All_data_page/All_data_page";
 import { useGetDataQuery } from "@/redux/api/data";
@@ -10,7 +10,10 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { generateQueryParams } from "@/utils/generateQueryParams";
 import NoData from "../../no_data/NoData";
 import { MdFilterAlt, MdFilterAltOff } from "react-icons/md";
+import { useParams } from "next/navigation";
+import { brands } from "../types/options/brand";
 const FilterBar = () => {
+  const { id } = useParams();
   const [selectedBrand, setSelectedBrand] = useState<string[]>([]);
   const [selectedPrice, setSelectedPrice] = useState<string[]>([]);
   const [diametr, setDiametr] = useState<string[]>([]);
@@ -46,10 +49,8 @@ const FilterBar = () => {
   ]);
 
   const { data, isLoading, isFetching, error } = useGetDataQuery(queryString);
-  console.log(data);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const menuRef: React.Ref<HTMLDivElement> | undefined = useRef(null);
-
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
@@ -93,6 +94,7 @@ const FilterBar = () => {
             key="brand"
             title="Бренд"
             options={brands}
+            id={parseInt(id as string, 10)}
             onChange={(value) => setSelectedBrand(value)}
             searchInput={true}
             searchPlaceholder="Поиск бренда..."
@@ -101,6 +103,7 @@ const FilterBar = () => {
             key="seasonality"
             title="Сезонность"
             options={seasonality}
+            id={parseInt(id as string, 10)}
             onChange={(value) => setSeasons(value)}
           />
           <FilterDropdownInput
