@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import scss from "./DetailsPage.module.scss";
-import { IoMdHeartEmpty } from "react-icons/io";
+import { IoMdHeart, IoMdHeartEmpty } from "react-icons/io";
 import { LuGitCompareArrows } from "react-icons/lu";
 import { RiShare2Line } from "react-icons/ri";
 import { FaTruck, FaCreditCard, FaStore, FaShoppingCart } from "react-icons/fa";
@@ -34,10 +34,32 @@ const options = [
 const DetailsPage = () => {
   const { id } = useParams();
   const { data: tyre, isLoading } = useGetDataByIdQuery(Number(id));
-
   const [selected, setSelected] = useState<string | OptionType>("product");
-
+  const [favoriteData, setFavoriteData] = useState<Tyres[]>([]);
   const [active, setActive] = useState<number>(0);
+
+  useEffect(() => {
+    const favoritesTyres = localStorage.getItem("favorites");
+    let favorites: Tyres[] = favoritesTyres ? JSON.parse(favoritesTyres) : [];
+    setFavoriteData(favorites);
+  }, []);
+
+  const handleAddFavorite = () => {
+    if (tyre) {
+      const favoritesTyres = localStorage.getItem("favorites");
+      let favorites: Tyres[] = favoritesTyres ? JSON.parse(favoritesTyres) : [];
+      if (favorites.some((fav) => fav.id === tyre.id)) {
+        favorites = favorites.filter((fav) => fav.id !== tyre.id);
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+        setFavoriteData(favorites);
+      } else {
+        favorites.push(tyre);
+        setFavoriteData(favorites);
+      }
+      localStorage.setItem("favorites", JSON.stringify(favorites));
+    }
+  };
+
   if (isLoading) {
     return (
       <div className={scss.loader}>
@@ -57,8 +79,13 @@ const DetailsPage = () => {
             <div className={scss.action}>
               <span className={scss.rating}>4.5</span>
               <button className={scss.button}>Оставить отзыв</button>
-              <button className={scss.button}>
-                <IoMdHeartEmpty />В избранное
+              <button className={scss.button} onClick={handleAddFavorite}>
+                {favoriteData.some((fav) => fav.id === tyre?.id) ? (
+                  <IoMdHeart />
+                ) : (
+                  <IoMdHeartEmpty />
+                )}
+                В избранное
               </button>
               <button className={scss.button}>
                 <LuGitCompareArrows />К сравнению
@@ -108,7 +135,9 @@ const DetailsPage = () => {
                 <p>Все характеристики</p>
               </div>
               <div className={scss.card}>
-                <h2 className={scss.card_price}>{Math.trunc(Number(tyre?.price))} ₽</h2>
+                <h2 className={scss.card_price}>
+                  {Math.trunc(Number(tyre?.price))} ₽
+                </h2>
                 <ul className={scss.features}>
                   <li>
                     <FaTruck /> Доставка есть
@@ -205,7 +234,9 @@ const DetailsPage = () => {
               </span>
             </div>
             <div className={scss.column4}>
-              <span className={scss.price_item}>{Math.trunc(Number(tyre?.price))} ₽</span>
+              <span className={scss.price_item}>
+                {Math.trunc(Number(tyre?.price))} ₽
+              </span>
               <Link href={tyre?.url!}>
                 В магазин <GoLinkExternal />
               </Link>
@@ -239,10 +270,6 @@ const DetailsPage = () => {
 
               <div className={scss.column}>
                 <h3 className={scss.subtitle}>Дополнительные характеристики</h3>
-                <div className={scss.row}>
-                  <span className={scss.label}>Шипы</span>
-                  <span className={scss.value}>Нет</span>
-                </div>
                 <div className={scss.row}>
                   <span className={scss.label}>Типоразмеры</span>
                   <span className={scss.value}>
