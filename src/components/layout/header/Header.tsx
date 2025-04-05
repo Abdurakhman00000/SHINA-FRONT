@@ -18,11 +18,14 @@ import { useAutoPodborModalStore } from "@/store/useAutoPodborModal";
 import Search from "@/components/ui/search/Search";
 
 import Link from "next/link";
+import { Badge } from "antd";
+import { useLoacalStorageData } from "@/store/useLocalStorageData";
 
 const Header = () => {
   const [isMobile, setIsMobile] = useState(false);
   const { isOpen, setIsOpen } = useCatalogModalStore();
   const { autoPodborOpen, togggleAutoPodborModal } = useAutoPodborModalStore();
+  const { favoritesData, comparesData } = useLoacalStorageData();
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
@@ -44,7 +47,6 @@ const Header = () => {
     };
   }, [setIsOpen]);
 
-  useEffect(() => {}, []);
   return (
     <header className={scss.Header}>
       <div className="container">
@@ -70,12 +72,18 @@ const Header = () => {
             <div className={scss.features}>
               <div className={scss.favorite_icon}>
                 <Link href="/favorite">
-                  <GrFavorite /> <p>Избранные</p>
+                  <Badge count={favoritesData.length} showZero>
+                    <GrFavorite />
+                  </Badge>
+                  <p>Избранные</p>
                 </Link>
               </div>
               <div className={scss.compare_icon}>
                 <Link href="/compare">
-                  <LuGitCompare /> <p>Сравнение</p>
+                  <Badge count={comparesData.length} showZero>
+                    <LuGitCompare />
+                  </Badge>
+                  <p>Сравнение</p>
                 </Link>
               </div>
             </div>

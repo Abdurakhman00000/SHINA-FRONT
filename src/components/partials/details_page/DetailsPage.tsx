@@ -15,6 +15,7 @@ import { useGetDataByIdQuery } from "@/redux/api/data";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { BiLoaderAlt } from "react-icons/bi";
+import { useLoacalStorageData } from "@/store/useLocalStorageData";
 
 interface OptionType {
   value: string;
@@ -35,13 +36,14 @@ const DetailsPage = () => {
   const { id } = useParams();
   const { data: tyre, isLoading } = useGetDataByIdQuery(Number(id));
   const [selected, setSelected] = useState<string | OptionType>("product");
-  const [favoriteData, setFavoriteData] = useState<Tyres[]>([]);
+  const { favoritesData, setFavoriteTyres } = useLoacalStorageData();
+  // const [favoriteData, setFavoriteData] = useState<Tyres[]>([]);
   const [active, setActive] = useState<number>(0);
 
   useEffect(() => {
     const favoritesTyres = localStorage.getItem("favorites");
     let favorites: Tyres[] = favoritesTyres ? JSON.parse(favoritesTyres) : [];
-    setFavoriteData(favorites);
+    setFavoriteTyres(favorites);
   }, []);
 
   const handleAddFavorite = () => {
@@ -51,10 +53,10 @@ const DetailsPage = () => {
       if (favorites.some((fav) => fav.id === tyre.id)) {
         favorites = favorites.filter((fav) => fav.id !== tyre.id);
         localStorage.setItem("favorites", JSON.stringify(favorites));
-        setFavoriteData(favorites);
+        setFavoriteTyres(favorites);
       } else {
         favorites.push(tyre);
-        setFavoriteData(favorites);
+        setFavoriteTyres(favorites);
       }
       localStorage.setItem("favorites", JSON.stringify(favorites));
     }
@@ -80,7 +82,7 @@ const DetailsPage = () => {
               <span className={scss.rating}>4.5</span>
               <button className={scss.button}>Оставить отзыв</button>
               <button className={scss.button} onClick={handleAddFavorite}>
-                {favoriteData.some((fav) => fav.id === tyre?.id) ? (
+                {favoritesData.some((fav) => fav.id === tyre?.id) ? (
                   <IoMdHeart />
                 ) : (
                   <IoMdHeartEmpty />

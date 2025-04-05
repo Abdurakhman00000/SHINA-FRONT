@@ -2,26 +2,24 @@
 import React, { useEffect, useState } from "react";
 import scss from "./Favorite.module.scss";
 import Product_card from "@/components/ui/cards/product_card/Product_card";
+import { useLoacalStorageData } from "@/store/useLocalStorageData";
 
 const Favorite = () => {
-  const [favoriteData, setFavoriteData] = useState<Tyres[]>([]);
-
+  const { favoritesData, setFavoriteTyres } = useLoacalStorageData();
   useEffect(() => {
     const favoritesTyres = localStorage.getItem("favorites");
     let favorites: Tyres[] = favoritesTyres ? JSON.parse(favoritesTyres) : [];
-    setFavoriteData(favorites);
+    setFavoriteTyres(favorites);
   }, []);
 
   const handleRemoveFavorite = (id: number) => {
-    setFavoriteData((prevFavorites) => {
-      const updatedFavorites = prevFavorites.filter((fav) => fav.id !== id);
-      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-      return updatedFavorites;
-    });
+    const updatedFavorites = favoritesData.filter((fav) => fav.id !== id);
+    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+    setFavoriteTyres(updatedFavorites);
   };
   const handleClearAllFavorites = () => {
     localStorage.removeItem("favorites");
-    setFavoriteData([]);
+    setFavoriteTyres([]);
   };
   return (
     <section className={scss.favorite}>
@@ -29,7 +27,7 @@ const Favorite = () => {
         <div className={scss.header}>
           <h1 className={scss.title}>Избранное</h1>
           <div className={scss.info}>
-            <span> {favoriteData.length} товаров</span>
+            <span> {favoritesData.length} товаров</span>
             <button className={scss.clearBtn} onClick={handleClearAllFavorites}>
               Очистить список
             </button>
@@ -37,7 +35,7 @@ const Favorite = () => {
         </div>
         <div className={scss.content}>
           <div className={scss.main_card}>
-            {favoriteData.map((tyre) => (
+            {favoritesData.map((tyre) => (
               <Product_card
                 key={tyre.id}
                 tyre={tyre}
