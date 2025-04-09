@@ -2,7 +2,6 @@ import React from "react";
 import scss from "./Compare_card.module.scss";
 import { FaRegHeart } from "react-icons/fa";
 import { FiTrash } from "react-icons/fi";
-import Link from "next/link";
 import { IoMdHeart } from "react-icons/io";
 interface Compare_cardProps {
   image: string;

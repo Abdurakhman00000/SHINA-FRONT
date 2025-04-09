@@ -25,6 +25,18 @@ const Product_card = ({
   }, []);
 
   const handleAddCompare = () => {
+    if (tyre) {
+      const compareTyres = localStorage.getItem("compares");
+      let compares: Tyres[] = compareTyres ? JSON.parse(compareTyres) : [];
+      if (compares.some((com) => com.id === tyre.id)) {
+        compares = compares.filter((com) => com.id !== tyre.id);
+        localStorage.setItem("compares", JSON.stringify(compares));
+        setCompareTyres(compares);
+      } else if (compares.length < 5) {
+        compares.push(tyre);
+        setCompareTyres(compares);
+      }
+      localStorage.setItem("compares", JSON.stringify(compares));
     if (!tyre) return;
   
     const compareTyres = localStorage.getItem("compares");

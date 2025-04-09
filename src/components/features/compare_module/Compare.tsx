@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import scss from "./Compare.module.scss";
 import CompareCardList from "@/components/ui/list/CompareCardList";
 import { useLoacalStorageData } from "@/store/useLocalStorageData";

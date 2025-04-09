@@ -11,8 +11,11 @@
         border: 1px solid #ddd;
         display: flex;
         flex-direction: column;
-        padding: 10px ;
+        padding: 10px;
         border-radius: 10px;
+        @media (max-width: 624px) {
+          width: 250px;
+        }
         .table {
           border-collapse: collapse;
           overflow: hidden;
@@ -23,12 +26,18 @@
           padding: 10px;
           text-align: left;
           color: #000000bb;
+          @media (max-width: 624px) {
+            padding: 5px;
+          }
         }
         .header {
           background: rgb(176, 207, 247);
           color: rgb(0, 0, 0);
           text-align: center;
           font-size: 18px;
+          @media (max-width: 624px) {
+            font-size: 16px;
+          }
         }
         .title {
           font-weight: bold;
