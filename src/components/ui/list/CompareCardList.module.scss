@@ -3,9 +3,13 @@
   align-items: center;
   justify-content: center;
   .content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
     .table_list {
       display: flex;
       gap: 10px;
+      overflow-x: auto;
       .table_list_item {
         max-width: 300px;
         border: 1px solid #ddd;
