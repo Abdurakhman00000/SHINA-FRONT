@@ -15,7 +15,7 @@ const Product_card = ({
   handleremoveFavorites,
   isFavoriPage,
 }: Product_cardProps) => {
-  const {comparesData,setCompareTyres} = useLoacalStorageData();
+  const { comparesData, setCompareTyres } = useLoacalStorageData();
   useEffect(() => {
     const compareTyres = JSON.parse(localStorage.getItem("compares") as string);
     setCompareTyres(compareTyres);
@@ -29,7 +29,7 @@ const Product_card = ({
         compares = compares.filter((com) => com.id !== tyre.id);
         localStorage.setItem("compares", JSON.stringify(compares));
         setCompareTyres(compares);
-      } else {
+      } else if (compares.length < 5) {
         compares.push(tyre);
         setCompareTyres(compares);
       }
