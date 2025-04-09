@@ -20,22 +20,30 @@ const Product_card = ({
   const { comparesData, setCompareTyres } = useLoacalStorageData();
 
   useEffect(() => {
-    const compareTyres = JSON.parse(localStorage.getItem("compares") || "[]"); // Если null, то []
+    const compareTyres = JSON.parse(localStorage.getItem("compares") || "[]"); 
     setCompareTyres(compareTyres);
   }, []);
 
   const handleAddCompare = () => {
     if (!tyre) return;
-
+  
     const compareTyres = localStorage.getItem("compares");
-    let compares: Tyres[] = compareTyres ? JSON.parse(compareTyres) : [];
-
+    let compares: Tyres[] = [];
+  
+    try {
+      const parsed = compareTyres ? JSON.parse(compareTyres) : [];
+      compares = Array.isArray(parsed) ? parsed : [];
+    } catch (e) {
+      console.error("Ошибка парсинга compares:", e);
+      compares = [];
+    }
+  
     if (compares.some((com) => com.id === tyre.id)) {
       compares = compares.filter((com) => com.id !== tyre.id);
     } else {
       compares.push(tyre);
     }
-
+  
     localStorage.setItem("compares", JSON.stringify(compares));
     setCompareTyres(compares);
   };
@@ -87,7 +95,6 @@ const Product_card = ({
             </Link>
 
             <button className={scss.icon} onClick={handleAddCompare}>
-              <RiScales3Line />
               {Array.isArray(comparesData) && comparesData.some((com) => com.id === tyre.id) ? (
                 <GiCheckMark />
               ) : (
