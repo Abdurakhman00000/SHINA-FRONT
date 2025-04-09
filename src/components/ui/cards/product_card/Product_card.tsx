@@ -5,38 +5,21 @@ import Link from "next/link";
 import { IoMdHeart } from "react-icons/io";
 import { GiCheckMark } from "react-icons/gi";
 import { useLoacalStorageData } from "@/store/useLocalStorageData";
+
 interface Product_cardProps {
   tyre: Tyres;
   handleremoveFavorites?: (id: number) => void;
   isFavoriPage?: boolean;
 }
+
 const Product_card = ({
   tyre,
   handleremoveFavorites,
   isFavoriPage,
 }: Product_cardProps) => {
   const { comparesData, setCompareTyres } = useLoacalStorageData();
+
   useEffect(() => {
-    const compareTyres = JSON.parse(localStorage.getItem("compares") as string);
-    setCompareTyres(compareTyres);
-  }, []);
-
-  const handleAddCompare = () => {
-    if (tyre) {
-      const compareTyres = localStorage.getItem("compares");
-      let compares: Tyres[] = compareTyres ? JSON.parse(compareTyres) : [];
-      if (compares.some((com) => com.id === tyre.id)) {
-        compares = compares.filter((com) => com.id !== tyre.id);
-        localStorage.setItem("compares", JSON.stringify(compares));
-        setCompareTyres(compares);
-      } else if (compares.length < 5) {
-        compares.push(tyre);
-        setCompareTyres(compares);
-      }
-      localStorage.setItem("compares", JSON.stringify(compares));
-    }
-  };
-
     const compareTyres = JSON.parse(localStorage.getItem("compares") as "[]"); 
     setCompareTyres(compareTyres);
   }, []);
@@ -67,10 +50,11 @@ const Product_card = ({
   if (!tyre) {
     return (
       <div>
-        <p>Loding...</p>
+        <p>Loading...</p>
       </div>
     );
   }
+
   return (
     <div>
       <div className={scss.card}>
@@ -82,7 +66,7 @@ const Product_card = ({
               className={scss.remove_favorite}
               onClick={() => {
                 if (handleremoveFavorites) {
-                  handleremoveFavorites(tyre?.id);
+                  handleremoveFavorites(tyre.id);
                 }
               }}
             />
@@ -111,7 +95,7 @@ const Product_card = ({
             </Link>
 
             <button className={scss.icon} onClick={handleAddCompare}>
-              {comparesData.some((com) => com.id === tyre.id) ? (
+              {Array.isArray(comparesData) && comparesData.some((com) => com.id === tyre.id) ? (
                 <GiCheckMark />
               ) : (
                 <RiScales3Line />
@@ -123,4 +107,5 @@ const Product_card = ({
     </div>
   );
 };
+
 export default Product_card;
