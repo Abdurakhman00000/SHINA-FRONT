@@ -20,23 +20,11 @@ const Product_card = ({
   const { comparesData, setCompareTyres } = useLoacalStorageData();
 
   useEffect(() => {
-    const compareTyres = JSON.parse(localStorage.getItem("compares") || "[]"); 
+    const compareTyres = JSON.parse(localStorage.getItem("compares") as "[]"); 
     setCompareTyres(compareTyres);
   }, []);
 
-  const handleAddCompare = () => {
-    if (tyre) {
-      const compareTyres = localStorage.getItem("compares");
-      let compares: Tyres[] = compareTyres ? JSON.parse(compareTyres) : [];
-      if (compares.some((com) => com.id === tyre.id)) {
-        compares = compares.filter((com) => com.id !== tyre.id);
-        localStorage.setItem("compares", JSON.stringify(compares));
-        setCompareTyres(compares);
-      } else if (compares.length < 5) {
-        compares.push(tyre);
-        setCompareTyres(compares);
-      }
-      localStorage.setItem("compares", JSON.stringify(compares));
+  const handleAddCompare = () => {;
     if (!tyre) return;
   
     const compareTyres = localStorage.getItem("compares");
@@ -58,8 +46,7 @@ const Product_card = ({
   
     localStorage.setItem("compares", JSON.stringify(compares));
     setCompareTyres(compares);
-  };
-
+  }
   if (!tyre) {
     return (
       <div>
@@ -91,7 +78,8 @@ const Product_card = ({
             <span>&#x2022; {tyre.availability}</span>
           </div>
           <div className={scss.title}>
-            <h3>{tyre.product_name}</h3>
+            <h3>{tyre.brand}</h3>
+            <h2>{tyre.product_name}</h2>
             <span>
               {tyre.width}/{tyre.height} R{parseInt(tyre.diameter)}{" "}
               {tyre.load_index}V
