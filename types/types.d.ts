@@ -17,8 +17,10 @@ interface Tyres {
   height: string;
   diameter: string;
   availability: string;
-  images: string[];
+  images: string[] | string;
+  spikes: string;
   url: string;
+  site_name: string;
 }
 
 interface Params {
@@ -34,6 +36,7 @@ interface Params {
   speed_index: string[] | undefined;
   width_gte: string | undefined;
   width_lte: string | undefined;
+  spikes: string[] | undefined;
   page: number;
 }
 

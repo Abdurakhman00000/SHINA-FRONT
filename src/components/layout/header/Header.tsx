@@ -80,9 +80,9 @@ const Header = () => {
               </div>
               <div className={scss.compare_icon}>
                 <Link href="/compare">
-                  {/* <Badge count={comparesData.length} showZero>
+                  <Badge count={comparesData.length} showZero>
                     <LuGitCompare />
-                  </Badge> */}
+                  </Badge>
                   <p>Сравнение</p>
                 </Link>
               </div>

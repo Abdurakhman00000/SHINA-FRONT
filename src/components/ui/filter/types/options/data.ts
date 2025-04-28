@@ -5,6 +5,12 @@ export const seasonality: Options[] = [
   { id: 3, label: "Всесезонные", value: "Всесезонные" },
 ];
 
+export const spikes_data:Options[]=[
+  { id: 1, label: "Не шипованный", value: "Не шипованный" },
+  { id: 2, label: "Шипованный", value: "Шипованный" },
+
+]
+
 export const index_of_speed: Options[] = [
   { id: 1, label: "L (120 km/h)", value: "L" },
   { id: 2, label: "M (130 km/h)", value: "M" },

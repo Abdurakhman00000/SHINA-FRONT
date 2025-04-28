@@ -1,7 +1,11 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import scss from "./FilterBar.module.scss";
 import FilterDropdownList from "./ui/filterTabs/filter-dropdown-list/FilterDropdownList";
-import { index_of_speed, seasonality } from "../types/options/data";
+import {
+  index_of_speed,
+  seasonality,
+  spikes_data,
+} from "../types/options/data";
 import FilterDropdownInput from "./ui/filterTabs/filter-dropdown-input/FilterDropdownInput";
 import All_data_page from "@/components/partials/pages/All_data_page/All_data_page";
 import { useGetDataQuery } from "@/redux/api/data";
@@ -21,6 +25,7 @@ const FilterBar = () => {
   const [widthOfProfile, setWidthOfProfile] = useState<string[]>([]);
   const [heigthOfProfile, setHeightOfProfile] = useState<string[]>([]);
   const [indexOfSpeed, setIndexOfSpeed] = useState<string[]>([]);
+  const [spikes, setSpikes] = useState<string[]>([]);
   const [loadIndex, setLoadIndex] = useState<string>("");
   const [page, setPage] = useState<number>(1);
 
@@ -35,6 +40,7 @@ const FilterBar = () => {
       indexOfSpeed,
       loadIndex,
       page,
+      spikes,
     });
   }, [
     selectedBrand,
@@ -46,6 +52,7 @@ const FilterBar = () => {
     indexOfSpeed,
     loadIndex,
     page,
+    spikes,
   ]);
 
   const { data, isLoading, isFetching, error } = useGetDataQuery(queryString);
@@ -105,6 +112,13 @@ const FilterBar = () => {
             options={seasonality}
             id={parseInt(id as string, 10)}
             onChange={(value) => setSeasons(value)}
+          />
+          <FilterDropdownList
+            key="spikes"
+            title="Шипы"
+            options={spikes_data}
+            id={parseInt(id as string, 10)}
+            onChange={(value) => setSpikes(value)}
           />
           <FilterDropdownInput
             title="Ширина профиля"

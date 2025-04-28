@@ -8,6 +8,7 @@ export const generateQueryParams = ({
   indexOfSpeed,
   loadIndex,
   page,
+  spikes,
 }: {
   selectedBrand: string[];
   selectedPrice: string[];
@@ -18,6 +19,7 @@ export const generateQueryParams = ({
   indexOfSpeed: string[];
   loadIndex: string;
   page: number;
+  spikes: string[];
 }) => {
   const queryParams = {
     brand: selectedBrand?.length !== 0 ? selectedBrand : undefined,
@@ -33,6 +35,7 @@ export const generateQueryParams = ({
     width_gte: widthOfProfile ? widthOfProfile[0] : undefined,
     width_lte: widthOfProfile ? widthOfProfile[1] : undefined,
     page: page > 1 ? page : 1,
+    spikes: spikes?.length !== 0 ? spikes : undefined,
   };
 
   return queryParams;
