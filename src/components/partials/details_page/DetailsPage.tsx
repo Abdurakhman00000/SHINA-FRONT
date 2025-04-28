@@ -30,14 +30,12 @@ const options = [
   { value: "reviews", label: "Отзывы" },
 ];
 
-
 const DetailsPage = () => {
   const { id } = useParams();
   const { data: tyre, isLoading } = useGetDataByIdQuery(Number(id));
   const [selected, setSelected] = useState<string | OptionType>("product");
   const { favoritesData, setFavoriteTyres } = useLoacalStorageData();
   const [active, setActive] = useState<number>(0);
-
   useEffect(() => {
     const favoritesTyres = localStorage.getItem("favorites");
     let favorites: Tyres[] = favoritesTyres ? JSON.parse(favoritesTyres) : [];
@@ -46,7 +44,7 @@ const DetailsPage = () => {
 
   const images = React.useMemo(() => {
     if (!tyre?.images) return [];
-  
+
     if (typeof tyre.images === "string") {
       try {
         return JSON.parse(tyre.images);
@@ -55,10 +53,10 @@ const DetailsPage = () => {
         return [];
       }
     }
-  
-    return tyre.images;
-  }, []);
 
+    return tyre.images;
+  }, [tyre?.images]);
+console.log(images[0])
   const handleAddFavorite = () => {
     if (tyre) {
       const favoritesTyres = localStorage.getItem("favorites");
@@ -114,18 +112,20 @@ const DetailsPage = () => {
             <div className={scss.image_box}>
               <div className={scss.img_slider}>
                 {Array.isArray(images) &&
-                  images.map((el, index) => (
-                    <img
-                      key={index}
-                      className={`${active === index ? scss.active : ""}`}
-                      src={el}
-                      alt="шина"
-                      onClick={() => setActive(index)}
-                    />
-                  ))}
+                  images.map((el, index) => {
+                    return (
+                      <img
+                        key={index}
+                        className={`${active === index ? scss.active : ""}`}
+                        src={el}
+                        alt="шина"
+                        onClick={() => setActive(index)}
+                      />
+                    );
+                  })}
               </div>
               <div className={scss.img_wrapper}>
-              <img src={tyre?.images?.[active]} alt="шина" />
+                <img src={images[active]} alt="tyre" />
               </div>
             </div>
             <div className={scss.info_box}>
