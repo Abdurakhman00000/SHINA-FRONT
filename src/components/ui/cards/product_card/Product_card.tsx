@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import scss from "./Product_card.module.scss";
 import { RiScales3Line } from "react-icons/ri";
 import Link from "next/link";
@@ -12,24 +12,30 @@ interface Product_cardProps {
   isFavoriPage?: boolean;
 }
 
-const Product_card = ({
-  tyre,
-  handleremoveFavorites,
-  isFavoriPage,
-}: Product_cardProps) => {
+const Product_card = ({ tyre, handleremoveFavorites, isFavoriPage }: Product_cardProps) => {
   const { comparesData, setCompareTyres } = useLoacalStorageData();
 
   useEffect(() => {
-    const compareTyres = JSON.parse(localStorage.getItem("compares") as "[]"); 
+    const compareTyres = JSON.parse(localStorage.getItem("compares") || "[]");
     setCompareTyres(compareTyres);
   }, []);
 
-  const handleAddCompare = () => {;
+  const parsedImages = useMemo<string[]>(() => {
+    if (!tyre) return [];
+    try {
+      return Array.isArray(tyre.images) ? tyre.images : JSON.parse(tyre.images);
+    } catch (error) {
+      console.error("Ошибка парсинга tyre.images:", error);
+      return [];
+    }
+  }, [tyre]);
+
+  const handleAddCompare = () => {
     if (!tyre) return;
-  
+
     const compareTyres = localStorage.getItem("compares");
     let compares: Tyres[] = [];
-  
+
     try {
       const parsed = compareTyres ? JSON.parse(compareTyres) : [];
       compares = Array.isArray(parsed) ? parsed : [];
@@ -37,16 +43,17 @@ const Product_card = ({
       console.error("Ошибка парсинга compares:", e);
       compares = [];
     }
-  
+
     if (compares.some((com) => com.id === tyre.id)) {
       compares = compares.filter((com) => com.id !== tyre.id);
     } else {
       compares.push(tyre);
     }
-  
+
     localStorage.setItem("compares", JSON.stringify(compares));
     setCompareTyres(compares);
-  }
+  };
+
   if (!tyre) {
     return (
       <div>
@@ -59,7 +66,7 @@ const Product_card = ({
     <div>
       <div className={scss.card}>
         <div className={scss.image_wrapper}>
-          {tyre.images.length > 0 && <img src={tyre.images[0]} alt="img" />}
+          {parsedImages.length > 0 && <img src={parsedImages[0]} alt="img" />}
           {isFavoriPage && (
             <IoMdHeart
               size={20}
@@ -81,8 +88,7 @@ const Product_card = ({
             <h3>{tyre.brand}</h3>
             <h2>{tyre.product_name}</h2>
             <span>
-              {tyre.width}/{tyre.height} R{parseInt(tyre.diameter)}{" "}
-              {tyre.load_index}V
+              {tyre.width}/{tyre.height} R{parseInt(tyre.diameter)} {tyre.load_index}V
             </span>
           </div>
           <div className={scss.season}>

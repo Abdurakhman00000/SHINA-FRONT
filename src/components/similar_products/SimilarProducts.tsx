@@ -1,13 +1,18 @@
 import React from "react";
 import scss from "./SimilarProducts.module.scss";
 import Product_card from "@/components/ui/cards/product_card/Product_card";
-import { useGetDataQuery } from "@/redux/api/data";
+import { useGetSimilarTyresQuery } from "@/redux/api/data"; 
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import NoData from "../ui/no_data/NoData";
 
-const SimilarProducts = () => {
- const { data, isLoading } = useGetDataQuery();
+interface SimilarProductsProps {
+  tyreId: number;
+}
+
+const SimilarProducts = ({ tyreId }: SimilarProductsProps) => {
+  const { data, isLoading } = useGetSimilarTyresQuery(tyreId); 
+
   if (isLoading) {
     return (
       <div
@@ -23,16 +28,18 @@ const SimilarProducts = () => {
       </div>
     );
   }
-  if (!data) {
+
+  if (!data || data.length === 0) {
     return <NoData />;
   }
+
   return (
     <section className={scss.Main}>
       <div className="container">
         <div className={scss.content}>
           <h1>Похожие товары</h1>
           <div className={scss.main_card}>
-            {data.results.map((tyre) => (
+            {data.map((tyre) => ( 
               <Product_card key={tyre.id} tyre={tyre} />
             ))}
           </div>
@@ -43,7 +50,3 @@ const SimilarProducts = () => {
 };
 
 export default SimilarProducts;
-
-
-
-

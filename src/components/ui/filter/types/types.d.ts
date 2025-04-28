@@ -9,7 +9,7 @@ interface FilterProps {
 }
 
 interface Options {
-  id: number;
+  id?: number;
   label: string;
   value: string;
   img?: StaticImageData;
