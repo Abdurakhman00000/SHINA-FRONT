@@ -106,10 +106,6 @@ const Header = () => {
                   <FaFire /> Подбор по авто
                 </li>
                 <li>
-                  <MdOutlineDiscount /> Скидки дня
-                </li>
-                <li>Блог</li>
-                <li>
                   <Link href="/brand">Бренды</Link>
                 </li>
                 <div className={scss.line}></div>
