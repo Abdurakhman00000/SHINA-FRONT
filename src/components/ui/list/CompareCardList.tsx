@@ -16,6 +16,30 @@ const CompareCardList: React.FC<CompareCardListProps> = ({
     let favorites: Tyres[] = favoritesTyres ? JSON.parse(favoritesTyres) : [];
     setFavoriteData(favorites);
   }, []);
+  
+  // Helper function to get the first image from a tyre
+  const getFirstImage = (tyre: Tyres) => {
+    if (!tyre.images) return "";
+    
+    // Handle case when images is a string (JSON string)
+    if (typeof tyre.images === "string") {
+      try {
+        const parsedImages = JSON.parse(tyre.images);
+        return Array.isArray(parsedImages) && parsedImages.length > 0 
+          ? parsedImages[0] 
+          : "";
+      } catch (e) {
+        console.error("Ошибка парсинга изображений", e);
+        return "";
+      }
+    }
+    
+    // Handle case when images is already an array
+    return Array.isArray(tyre.images) && tyre.images.length > 0 
+      ? tyre.images[0] 
+      : "";
+  };
+
   return (
     <div className={scss.CompareCardList}>
       <div className={scss.content}>
@@ -39,6 +63,8 @@ const CompareCardList: React.FC<CompareCardListProps> = ({
               }
             };
             const isFavorite = favoriteData.some((f) => f.id === tyre.id);
+            const imageUrl = getFirstImage(tyre);
+            
             return (
               <li className={scss.table_list_item} key={tyre.id}>
                 <Compare_card
@@ -48,7 +74,7 @@ const CompareCardList: React.FC<CompareCardListProps> = ({
                   id={tyre.id}
                   name={tyre.product_name}
                   price={parseInt(tyre.price)}
-                  image={tyre.images[0]}
+                  image={imageUrl}
                 />
                 <table className={scss.table}>
                   <tbody>
@@ -90,24 +116,6 @@ const CompareCardList: React.FC<CompareCardListProps> = ({
                       <td className={scss.title}>Индекс загрузки:</td>
                       <td>{tyre.load_index}</td>
                     </tr>
-
-                    {/* <tr>
-                    <th colSpan={2} className={scss.header}>
-                      Характеристики
-                    </th>
-                  </tr>
-                  <tr>
-                    <td className={scss.title}>Уровень шума:</td>
-                    <td>72 дБ</td>
-                  </tr>
-                  <tr>
-                    <td className={scss.title}>Расход топлива:</td>
-                    <td>Значение</td>
-                  </tr>
-                  <tr>
-                    <td className={scss.title}>Управляемость:</td>
-                    <td>Значение</td>
-                  </tr> */}
                   </tbody>
                 </table>
               </li>
