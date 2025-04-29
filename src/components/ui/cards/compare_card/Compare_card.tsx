@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import scss from "./Compare_card.module.scss";
 import { FaRegHeart } from "react-icons/fa";
 import { FiTrash } from "react-icons/fi";
@@ -23,31 +23,18 @@ const Compare_card: React.FC<Compare_cardProps> = ({
   handledelete,
   handleAddFavorite,
 }) => {
-  const parsedImage = useMemo<string>(() => {
-    if (!image || image.length === 0) return "";
-
-    const trimmedImage = image.trim();
-
-    if (trimmedImage.startsWith("[") && trimmedImage.endsWith("]")) {
-      try {
-        const parsed = JSON.parse(trimmedImage);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed[0];
-        }
-        return "";
-      } catch (error) {
-        console.error("Ошибка парсинга image:", error);
-        return "";
-      }
-    }
-
-    return trimmedImage;
-  }, [image]);
-
   return (
     <div className={scss.Compare_card}>
       <div className={scss.item}>
-        <img src={parsedImage || "/default-image.jpg"} alt={name} loading="lazy" />
+        <img 
+          src={image || "/default-image.jpg"} 
+          alt={name} 
+          loading="lazy" 
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = "/default-image.jpg";
+          }}
+        />
         <div className={scss.info}>
           <h3>{name}</h3>
           <p>{price} ₽</p>

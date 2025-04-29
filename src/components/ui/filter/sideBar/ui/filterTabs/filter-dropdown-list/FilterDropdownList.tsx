@@ -1,51 +1,76 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, memo } from "react";
 import scss from "./FilterDropdownList.module.scss";
 import ToggleButton from "../../toggle_button/ToggleButton";
 import { FilterProps, Options } from "@/components/ui/filter/types/types";
 
-const FilterDropdownList: React.FC<FilterProps> = ({
+interface ExtendedFilterProps extends FilterProps {
+  defaultActive?: boolean;
+  selectedValues?: string[];
+}
+
+const FilterDropdownList: React.FC<ExtendedFilterProps> = ({
   onChange,
   options,
   title,
   searchInput,
   searchPlaceholder,
   id,
+  defaultActive = false,
+  selectedValues,
 }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(defaultActive);
   const [selectedOption, setSelectedOption] = useState<string[]>([]);
   const [searchValue, setSearchValue] = useState("");
-  const [filteredOptions, setFilteredOptions] = useState<Options[]>([]);
+  const [filteredOptions, setFilteredOptions] = useState<Options[]>(options);
 
+  // Filter options based on search value
   useEffect(() => {
     setFilteredOptions(
       options.filter((option) =>
         option.label.toLowerCase().includes(searchValue.toLowerCase())
       )
     );
-  }, [searchValue]);
+  }, [searchValue, options]);
 
+  // Set selected options from props if provided
   useEffect(() => {
-    onChange(selectedOption);
-  }, [selectedOption]);
-
-  const selectOption = (value: string) => {
-    setSelectedOption((selectedValues) =>
-      selectedValues.includes(value)
-        ? selectedValues.filter((v) => v !== value)
-        : [...selectedValues, value]
-    );
-  };
-
-  useEffect(() => {
-    if (id) {
+    if (selectedValues && selectedValues.length > 0) {
+      setSelectedOption(selectedValues);
+    } else if (id) {
+      // Legacy support for id-based selection
       const selected = options.filter((option) => option.id === id);
       if (selected.length > 0) {
         setSelectedOption([selected[0].value]);
       }
     }
-  }, [id]);
+  }, [id, options, selectedValues]);
 
-  const toggleDropdown = () => setIsOpen(!isOpen);
+  // Notify parent component when selection changes
+  useEffect(() => {
+    onChange(selectedOption);
+  }, [selectedOption, onChange]);
+
+  // Handle option selection with useCallback for better performance
+  const selectOption = useCallback((value: string) => {
+    setSelectedOption((selectedValues) => {
+      const newValues = selectedValues.includes(value)
+        ? selectedValues.filter((v) => v !== value)
+        : [...selectedValues, value];
+      
+      return newValues;
+    });
+  }, []);
+
+  // Toggle dropdown with useCallback for better performance
+  const toggleDropdown = useCallback(() => {
+    setIsOpen((prevIsOpen) => !prevIsOpen);
+  }, []);
+
+  // Handle search input change
+  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+  }, []);
+
   return (
     <div className={scss.FilterDropdown}>
       <div className={scss.content}>
@@ -58,7 +83,7 @@ const FilterDropdownList: React.FC<FilterProps> = ({
                 className={scss.search_input}
                 placeholder={searchPlaceholder}
                 value={searchValue}
-                onChange={(e) => setSearchValue(e.target.value)}
+                onChange={handleSearchChange}
               />
             )}
             <ul className={scss.dropdown_list}>
@@ -94,4 +119,4 @@ const FilterDropdownList: React.FC<FilterProps> = ({
   );
 };
 
-export default FilterDropdownList;
+export default memo(FilterDropdownList);
