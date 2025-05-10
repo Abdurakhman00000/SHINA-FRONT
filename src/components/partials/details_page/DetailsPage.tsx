@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import scss from "./DetailsPage.module.scss";
-import { IoMdHeartEmpty } from "react-icons/io";
+import { IoMdHeart, IoMdHeartEmpty } from "react-icons/io";
 import { LuGitCompareArrows } from "react-icons/lu";
 import { RiShare2Line } from "react-icons/ri";
 import { FaTruck, FaCreditCard, FaStore, FaShoppingCart } from "react-icons/fa";
@@ -15,35 +15,64 @@ import { useGetDataByIdQuery } from "@/redux/api/data";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { BiLoaderAlt } from "react-icons/bi";
+import { useLoacalStorageData } from "@/store/useLocalStorageData";
+import SimilarProducts from "@/components/similar_products/SimilarProducts";
 
 interface OptionType {
   value: string;
   label: string;
 }
-const img = [
-  "https://static.price.ru/images/models/401x401/avtomobilnaya-shina/marshal-mh12/52e31fcff684980e1127dc63f22bf413.JPEG",
-  "https://www.kivano.kg/images/product/136706/full/1716285700_96966300.jpg",
-  "https://vsekolesa.ru/uploads/product/368/5-T608x0.jpg",
-  "https://storage.yandexcloud.net/nik-auto/vezemkolesa/www/assets/catalog/tyre/Michelin/pilot_sport_4_s/pilot_sport_4_s/pilot_sport_4_s_watermark_1.jpg",
-  "https://shinaufa.ru/images/large/tyres/michelin/pilot-sport-ps2.jpg",
-];
+
 const options = [
   { value: "product", label: "О товаре" },
   { value: "price", label: "Цены" },
   { value: "characteristics", label: "Характеристики" },
   { value: "reviews", label: "Отзывы" },
-  { value: "questions", label: "Вопросы" },
-  { value: "price_history", label: "История цен" },
-  { value: "accessories", label: "Аксессуары" },
 ];
 
 const DetailsPage = () => {
   const { id } = useParams();
   const { data: tyre, isLoading } = useGetDataByIdQuery(Number(id));
-
   const [selected, setSelected] = useState<string | OptionType>("product");
-
+  const { favoritesData, setFavoriteTyres } = useLoacalStorageData();
   const [active, setActive] = useState<number>(0);
+  useEffect(() => {
+    const favoritesTyres = localStorage.getItem("favorites");
+    let favorites: Tyres[] = favoritesTyres ? JSON.parse(favoritesTyres) : [];
+    setFavoriteTyres(favorites);
+  }, []);
+
+  const images = React.useMemo(() => {
+    if (!tyre?.images) return [];
+
+    if (typeof tyre.images === "string") {
+      try {
+        return JSON.parse(tyre.images);
+      } catch (e) {
+        console.error("Ошибка парсинга изображений", e);
+        return [];
+      }
+    }
+
+    return tyre.images;
+  }, [tyre?.images]);
+console.log(images[0])
+  const handleAddFavorite = () => {
+    if (tyre) {
+      const favoritesTyres = localStorage.getItem("favorites");
+      let favorites: Tyres[] = favoritesTyres ? JSON.parse(favoritesTyres) : [];
+      if (favorites.some((fav) => fav.id === tyre.id)) {
+        favorites = favorites.filter((fav) => fav.id !== tyre.id);
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+        setFavoriteTyres(favorites);
+      } else {
+        favorites.push(tyre);
+        setFavoriteTyres(favorites);
+      }
+      localStorage.setItem("favorites", JSON.stringify(favorites));
+    }
+  };
+
   if (isLoading) {
     return (
       <div className={scss.loader}>
@@ -57,14 +86,18 @@ const DetailsPage = () => {
         <div className={scss.content}>
           <div className={scss.header}>
             <div className={scss.title}>
+              <h1>{tyre?.brand}</h1>
               <h2>{tyre?.product_name}</h2>
-              <p>{tyre?.price} Р</p>
+              <p>{Math.trunc(Number(tyre?.price))} ₽</p>
             </div>
             <div className={scss.action}>
-              <span className={scss.rating}>4.5</span>
-              <button className={scss.button}>Оставить отзыв</button>
-              <button className={scss.button}>
-                <IoMdHeartEmpty />В избранное
+              <button className={scss.button} onClick={handleAddFavorite}>
+                {favoritesData.some((fav) => fav.id === tyre?.id) ? (
+                  <IoMdHeart />
+                ) : (
+                  <IoMdHeartEmpty />
+                )}
+                В избранное
               </button>
               <button className={scss.button}>
                 <LuGitCompareArrows />К сравнению
@@ -78,18 +111,21 @@ const DetailsPage = () => {
           <div className={scss.product}>
             <div className={scss.image_box}>
               <div className={scss.img_slider}>
-                {tyre?.images.map((el, index) => (
-                  <img
-                    key={index}
-                    className={`${active === index ? scss.active : ""}`}
-                    src={el}
-                    alt="шина"
-                    onClick={() => setActive(index)}
-                  />
-                ))}
+                {Array.isArray(images) &&
+                  images.map((el, index) => {
+                    return (
+                      <img
+                        key={index}
+                        className={`${active === index ? scss.active : ""}`}
+                        src={el}
+                        alt="шина"
+                        onClick={() => setActive(index)}
+                      />
+                    );
+                  })}
               </div>
               <div className={scss.img_wrapper}>
-                <img src={img[active]} alt="шина" />
+                <img src={images[active]} alt="tyre" />
               </div>
             </div>
             <div className={scss.info_box}>
@@ -106,25 +142,21 @@ const DetailsPage = () => {
                       <td className={scss.value}>Нет</td>
                     </tr>
                     <tr>
-                      <td className={scss.title}>Тип автомобиля:</td>
-                      <td>225/75 R16, 185/75 R16</td>
+                      <td className={scss.title}>Размеры:</td>
+                      <td>
+                        {tyre?.width}/{tyre?.height} R
+                        {parseInt(tyre?.diameter as string)}
+                        {tyre?.load_index}V
+                      </td>
                     </tr>
                   </tbody>
                 </table>
-                <p>Все характеристики</p>
               </div>
               <div className={scss.card}>
-                <h2 className={scss.card_price}>{tyre?.price}</h2>
+                <h2 className={scss.card_price}>
+                  {Math.trunc(Number(tyre?.price))} ₽
+                </h2>
                 <ul className={scss.features}>
-                  <li>
-                    <FaTruck /> Доставка есть
-                  </li>
-                  <li>
-                    <FaCreditCard /> Оплата картой и наличными
-                  </li>
-                  <li>
-                    <FaStore /> Самовывоз есть
-                  </li>
                   <li className={scss.store}>
                     <FaShoppingCart /> Колёса Даром
                     <span className={scss.rating}>
@@ -169,18 +201,14 @@ const DetailsPage = () => {
           {/* Цены */}
           <div className={scss.sort}>
             <h2>Цены на Arivo Transito ARZ 6-C в г. Москва</h2>
-            <div className={scss.actions}>
+            {/* <div className={scss.actions}>
               <div className={scss.select}>
                 <SelectComponent options={options} />
               </div>
-            </div>
+            </div> */}
           </div>
           <div className={scss.price_card}>
-            <img
-              className={scss.product_img}
-              src="https://www.kivano.kg/images/product/136706/full/1716285700_96966300.jpg"
-              alt="img"
-            />
+            <img className={scss.product_img} src={tyre?.images[0]} alt="img" />
             <div className={scss.column1}>
               <h4 className={scss.title}>Шины Arivo</h4>
               <p>
@@ -215,7 +243,9 @@ const DetailsPage = () => {
               </span>
             </div>
             <div className={scss.column4}>
-              <span className={scss.price_item}>{tyre?.price}</span>
+              <span className={scss.price_item}>
+                {Math.trunc(Number(tyre?.price))} ₽
+              </span>
               <Link href={tyre?.url!}>
                 В магазин <GoLinkExternal />
               </Link>
@@ -248,22 +278,25 @@ const DetailsPage = () => {
               </div>
 
               <div className={scss.column}>
-                <h3 className={scss.subtitle}>Дополнительные характеристики</h3>
                 <div className={scss.row}>
-                  <span className={scss.label}>Шипы</span>
-                  <span className={scss.value}>Нет</span>
+                  <span className={scss.label}>Ширина</span>
+                  <span className={scss.value}>{tyre?.width}</span>
                 </div>
                 <div className={scss.row}>
-                  <span className={scss.label}>Типоразмеры</span>
-                  <span className={scss.value}>
-                    185/60 R15, 175/70 R13, 205/55 R16, 185/65 R14, 175/70 R14,
-                    205/65 R15, 235/60 R16
-                  </span>
+                  <span className={scss.label}>Высота</span>
+                  <span className={scss.value}>{tyre?.height}</span>
+                </div>
+                <div className={scss.row}>
+                  <span className={scss.label}>Индекс скорости</span>
+                  <span className={scss.value}>{tyre?.speed_index}</span>
+                </div>
+                <div className={scss.row}>
+                  <span className={scss.label}>Индекс нагрузки</span>
+                  <span className={scss.value}>{tyre?.load_index}</span>
                 </div>
               </div>
             </div>
           </div>
-          {/* Характеристики */}
 
           {/*Отзывы*/}
           <div className={scss.comment}>
@@ -314,17 +347,11 @@ const DetailsPage = () => {
                 </button>
               </div>
             </div>
-
-            <div className={scss.reviewButton}>
-              <button className={scss.button}>Оставить отзыв</button>
-              <p className={scss.hint}>
-                Поделитесь опытом использования товара, расскажите о его
-                достоинствах и недостатках в своем отзыве
-              </p>
-            </div>
           </div>
+
           {/*Отзывы*/}
-          <PriceHistory />
+          {/* <PriceHistory /> */}
+          {tyre?.id && <SimilarProducts tyreId={tyre.id} />}
         </div>
       </div>
     </section>

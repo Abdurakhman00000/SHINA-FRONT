@@ -1,0 +1,49 @@
+.FilterDropdown {
+  width: 100%;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    .filter_dropdown {
+      border-radius: 5px;
+      .search_input {
+        height: 30px;
+        border: 1px solid rgb(47, 63, 78);
+        padding-inline: 5px;
+        border-radius: 5px;
+      }
+      .dropdown_list {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        max-height: 350px;
+        overflow-y: auto;
+
+        .dropdown_list_item {
+          list-style: none;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          white-space: nowrap;
+          .dropdown_checkbox {
+            width: 16px;
+            height: 16px;
+          }
+          .dropdown_label {
+            color: black;
+            font-size: 16px;
+            font-weight: 400;
+          }
+        }
+        .not_found_value {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: gray;
+          font-weight: 600;
+          height: 100px;
+        }
+      }
+    }
+  }
+}

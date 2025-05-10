@@ -1,0 +1,25 @@
+.Search_mobile {
+  .search_button_mobile {
+    background-color: #007bff;
+    border: none;
+    outline: none;
+    border-radius: 13px;
+    width: 39px;
+    height: 39px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+
+    svg {
+      color: white;
+      width: 24px;
+      height: 24px;
+    }
+  }
+}

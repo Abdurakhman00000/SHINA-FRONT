@@ -1,0 +1,60 @@
+.All_data {
+  width: 100%;
+
+  .content {
+    width: 100%;
+    margin-top: 70px;
+    .main_card {
+      width: 100%;
+      align-items: center;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+
+      @media (max-width: 1200px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      @media (max-width: 1040px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      @media (max-width: 840px) {
+        grid-template-columns: repeat(3, 1fr);
+        justify-content: center;
+      }
+      @media (max-width: 740px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      @media (max-width: 470px) {
+        grid-template-columns: repeat(1, 280px);
+        justify-content: center;
+      }
+    }
+    .loadMore_button {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 50px;
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        background: rgb(237, 237, 237);
+        color: #0062ff;
+        border: 2px solid #0062ff;
+        border-radius: 50%;
+        margin-top: 20px;
+        cursor: pointer;
+        &:disabled {
+          border: none;
+        }
+        &:hover {
+          opacity: 0.75;
+          transition: transform opacity 0.5 ease;
+        }
+      }
+    }
+  }
+}
